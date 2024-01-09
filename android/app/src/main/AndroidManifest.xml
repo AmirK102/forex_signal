@@ -8,7 +8,7 @@
 
 
     <application
-        android:label="Package Panda"
+        android:label="Forex Signal"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

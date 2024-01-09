@@ -44,38 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyArhuGdu-mgtxEoLnE5atiOcVqEnrQKAaQ',
-    appId: '1:1002112642465:web:6bcb2e6957bed656d9efe0',
-    messagingSenderId: '1002112642465',
-    projectId: 'package-panda',
-    authDomain: 'package-panda.firebaseapp.com',
-    storageBucket: 'package-panda.appspot.com',
-    measurementId: 'G-H7ZXENXNXM',
+    apiKey: 'AIzaSyBanTUjrQK13M0ka6FchgEU5poy6PlYiYg',
+    appId: '1:331939658318:web:b8fd48d2867e9511a1611f',
+    messagingSenderId: '331939658318',
+    projectId: 'forex-signal-6c4cd',
+    authDomain: 'forex-signal-6c4cd.firebaseapp.com',
+    storageBucket: 'forex-signal-6c4cd.appspot.com',
+    measurementId: 'G-5VF0NTSEF1',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyABOUCXXF4TTxJ5rBAGY8hRm67a6rMXx6Y',
-    appId: '1:1002112642465:android:1b5e39815530c745d9efe0',
-    messagingSenderId: '1002112642465',
-    projectId: 'package-panda',
-    storageBucket: 'package-panda.appspot.com',
+    apiKey: 'AIzaSyAZy6Nrwbe0qG7zDjguF-hI-1ZdEg9n-cA',
+    appId: '1:331939658318:android:42be3a398e4b0ff7a1611f',
+    messagingSenderId: '331939658318',
+    projectId: 'forex-signal-6c4cd',
+    storageBucket: 'forex-signal-6c4cd.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAQvMC_wwNgtXbL2IYAcVAIHBKTbnhVHAg',
-    appId: '1:1002112642465:ios:a1f4a8818742f8a4d9efe0',
-    messagingSenderId: '1002112642465',
-    projectId: 'package-panda',
-    storageBucket: 'package-panda.appspot.com',
-    iosBundleId: 'com.appanda.packagepanda',
+    apiKey: 'AIzaSyCT6FNPpy_wQkucRjNSxC3LIX_qn5b5rAc',
+    appId: '1:331939658318:ios:3cd85287bd133bc0a1611f',
+    messagingSenderId: '331939658318',
+    projectId: 'forex-signal-6c4cd',
+    storageBucket: 'forex-signal-6c4cd.appspot.com',
+    iosBundleId: 'com.appanda.cryptoSignal',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAQvMC_wwNgtXbL2IYAcVAIHBKTbnhVHAg',
-    appId: '1:1002112642465:ios:6672ada1127736d6d9efe0',
-    messagingSenderId: '1002112642465',
-    projectId: 'package-panda',
-    storageBucket: 'package-panda.appspot.com',
-    iosBundleId: 'com.appanda.packagepanda.RunnerTests',
+    apiKey: 'AIzaSyCT6FNPpy_wQkucRjNSxC3LIX_qn5b5rAc',
+    appId: '1:331939658318:ios:1117150f4cc2a8b8a1611f',
+    messagingSenderId: '331939658318',
+    projectId: 'forex-signal-6c4cd',
+    storageBucket: 'forex-signal-6c4cd.appspot.com',
+    iosBundleId: 'com.appanda.cryptoSignal.RunnerTests',
   );
 }

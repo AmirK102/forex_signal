@@ -413,9 +413,103 @@ class HomePage extends StatelessWidget {
                     ),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        List<PackageModel>? data = snapshot.data;
+                        List<PackageModel>? data = snapshot.data!;
 
-                        return SliverGrid.builder(
+                        return SliverList(
+
+                            delegate: SliverChildBuilderDelegate(
+                                    childCount: 5,
+                                    (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Get.to(() => OrderPage(data: data[index]),
+                                  arguments: getColor(data[index].sim));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(bottom: 10.w),
+                              padding: EdgeInsets.all(15.w),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.w),
+                                color: AppColors.whiteColor,
+                                border: Border.all(
+                                  color: AppColors.mainColor.withOpacity(0.5),
+                                  width: 1.w
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.shadowColor,
+                                    blurRadius: 5.0,
+                                    offset: Offset(0,3)
+                                  ),
+
+                                ]
+                              ),
+
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(8.w),
+
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.w),
+                                      border: Border.all(
+                                          color: AppColors.mainColor.withOpacity(0.5),
+                                          width: 1.w
+                                      ),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("BTCUSD",style: TextStyle(color: AppColors.mainColor,fontSize: 20.w,fontWeight: FontWeight.w600),),
+                                        Gap(5.w),
+                                        Text("10:22 2/3/2024",style: TextStyle(color: AppColors.shadowColor,fontSize: 14.w,fontWeight: FontWeight.w400),),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Container(
+                                    padding: EdgeInsets.all(8.w),
+
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.w),
+                                      border: Border.all(
+                                          color: AppColors.mainColor.withOpacity(0.5),
+                                          width: 1.w
+                                      ),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Active",style: TextStyle(color: AppColors.grameenCOlor,fontSize: 20.w,fontWeight: FontWeight.w600),),
+                                        Gap(5.w),
+                                        Text("Tp-1",style: TextStyle(color: AppColors.banglalinkColor,fontSize: 16.w,fontWeight: FontWeight.w400),),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Container(
+                                      padding: EdgeInsets.all(8.w),
+
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10.w),
+                                        border: Border.all(
+                                            color: AppColors.mainColor.withOpacity(0.5),
+                                            width: 1.w
+                                        ),
+                                      ),
+
+                                      child: Text("Buy",style: TextStyle(color: AppColors.mainColor,fontSize: 24.w,fontWeight: FontWeight.w600),))
+                                  
+                                ],
+                              ),
+                            ),
+                          );
+                        }));
+
+
+
+                        /*SliverGrid.builder(
                           itemCount: data!.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
@@ -435,7 +529,7 @@ class HomePage extends StatelessWidget {
                               ),
                             );
                           },
-                        );
+                        );*/
                       }
                       return SliverToBoxAdapter();
                     });

@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "ApPanda" "\0"
-            VALUE "FileDescription", "Package Panda" "\0"
+            VALUE "FileDescription", "Forex Signal" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "Package Panda" "\0"
+            VALUE "InternalName", "Forex Signal" "\0"
             VALUE "LegalCopyright", "copyright@ApPanda" "\0"
-            VALUE "OriginalFilename", "packagepanda.exe" "\0"
-            VALUE "ProductName", "Package Panda" "\0"
+            VALUE "OriginalFilename", "cryptoSignal.exe" "\0"
+            VALUE "ProductName", "Forex Signal" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
