@@ -1,92 +1,67 @@
 // To parse this JSON data, do
 //
-//     final packageModel = packageModelFromJson(jsonString);
+//     final signalModel = signalModelFromJson(jsonString);
 
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-PackageModel packageModelFromJson(String str) => PackageModel.fromJson(json.decode(str));
+SignalModel signalModelFromJson(String str) => SignalModel.fromJson(json.decode(str));
 
-String packageModelToJson(PackageModel data) => json.encode(data.toJson());
+String signalModelToJson(SignalModel data) => json.encode(data.toJson());
 
-class PackageModel {
-  String? transactionId;
-  String? description;
-  double? packageRate;
-  dynamic duration;
-  double? discount;
-  String? packageType;
-  String? title;
-  double? revenue;
-  double? earnings;
-  DateTime? dateTime;
-  double? price;
-  String? sim;
-  double? commission;
-  String? phoneNumber;
+class SignalModel {
   String? id;
+  String? pair;
+  String? openEntru;
+  String? stopLoss;
+  String? tp1;
+  String? tp2;
+  String? tp3;
+  DateTime? dateTime;
   String? status;
-  bool? hotDeal;
+  String? market;
+  bool? action;
 
-  PackageModel({
-    this.transactionId,
-    this.hotDeal,
-    this.description,
-    this.packageRate,
-    this.duration,
-    this.discount,
-    this.packageType,
-    this.title,
-    this.revenue,
-    this.earnings,
-    this.dateTime,
-    this.price,
-    this.sim,
-    this.commission,
-    this.phoneNumber,
+  SignalModel({
     this.id,
+    this.pair,
+    this.openEntru,
+    this.stopLoss,
+    this.tp1,
+    this.tp2,
+    this.tp3,
+    this.dateTime,
     this.status,
+    this.market,
+    this.action,
   });
 
-  factory PackageModel.fromJson(Map<String, dynamic> json) => PackageModel(
-    transactionId: json["transaction_id"],
-    description: json["description"],
-    hotDeal: json["hot_deal"],
-    packageRate: json["package_rate"]?.toDouble(),
-    duration: json["duration"],
-    discount: json["discount"]?.toDouble(),
-    packageType: json["package_type"],
-    title: json["title"],
-    revenue: json["revenue"]?.toDouble(),
-    earnings: json["earnings"]?.toDouble(),
-    dateTime: json["date_time"] == null ? null : (json["date_time"] as Timestamp).toDate(),
-    price: json["price"]?.toDouble(),
-    sim: json["sim"],
-    commission: json["commission"]?.toDouble(),
-    phoneNumber: json["phone_number"],
+  factory SignalModel.fromJson(Map<String, dynamic> json) => SignalModel(
     id: json["id"],
+    pair: json["pair"],
+    openEntru: json["open_entru"],
+    stopLoss: json["stop_loss"],
+    tp1: json["tp1"],
+    tp2: json["tp2"],
+    tp3: json["tp3"],
+    dateTime: json["date_time"] == null ? null : (json["date_time"] as Timestamp).toDate(),
     status: json["status"],
+    market: json["market"],
+    action: json["action"],
   );
 
   Map<String, dynamic> toJson() => {
-    "transaction_id": transactionId,
-    "package_rate": packageRate,
-    "hot_deal": hotDeal,
-    "duration": duration,
-    "description": description,
-    "discount": discount,
-    "package_type": packageType,
-    "title": title,
-    "revenue": revenue,
-    "earnings": earnings,
-    "date_time": dateTime,
-    "price": price,
-    "sim": sim,
-    "commission": commission,
-    "phone_number": phoneNumber,
     "id": id,
+    "pair": pair,
+    "open_entru": openEntru,
+    "stop_loss": stopLoss,
+    "tp1": tp1,
+    "tp2": tp2,
+    "tp3": tp3,
+    "date_time": dateTime,
     "status": status,
+    "market": market,
+    "action": action,
   };
 }
-

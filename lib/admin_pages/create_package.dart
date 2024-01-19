@@ -14,6 +14,26 @@ import 'package:package_panda/pages/home_page.dart';
 import 'package:package_panda/pages/order_page.dart';
 import 'package:package_panda/repository/firebase_api.dart';
 import 'package:package_panda/utilities/app_colors.dart';
+enum currencyType { all, crypto, forex, metal, stock }
+getPackage(value) {
+  print("value==============");
+  print(value);
+  if (value == currencyType.crypto.name) {
+    return "Crypto";
+  }
+  if (value == currencyType.forex.name) {
+    return "Forex";
+  }
+  if (value == currencyType.metal.name) {
+    return "Metals";
+  }
+  if (value == currencyType.stock.name) {
+    return "Stocks";
+  }
+
+
+  return "";
+}
 
 class CreatePackage extends StatelessWidget {
   CreatePackage({
@@ -24,24 +44,7 @@ class CreatePackage extends StatelessWidget {
 
   var controller = Get.put(CreatePackageLogic());
 
-  getPacakge(value) {
-    print("value==============");
-    print(value);
-    if (value == simType.gp.name) {
-      return "গ্রামীন ফোন";
-    }
-    if (value == simType.banglalink.name) {
-      return "বাংলালিংক";
-    }
-    if (value == simType.airtel.name) {
-      return "এয়ারটেল";
-    }
-    if (value == simType.robi.name) {
-      return "রবি";
-    }
 
-    return "";
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,7 @@ class CreatePackage extends StatelessWidget {
                         Get.defaultDialog(
                             title: "Delete Warning!",
                             content:
-                                Text("Do you want to delete this package?"),
+                            Text("Do you want to delete this package?"),
                             onConfirm: () {
                               try {
                                 FirebaseApi()
@@ -83,61 +86,40 @@ class CreatePackage extends StatelessWidget {
                       children: [
                         Gap(20.w),
                         MainDropdownPicker(
-                          labelText: "Select Sim",
-                          initialValue: controller.selectedSimType.value == ""
+                          labelText: "Select Market",
+                          initialValue: controller.selectedCurencyType.value ==
+                              ""
                               ? null
-                              : getPacakge(controller.selectedSimType.value),
+                              : getPackage(
+                              controller.selectedCurencyType.value),
                           options: [
-                            "সব সিম",
-                            "রবি",
-                            "এয়ারটেল",
-                            "বাংলালিংক",
-                            "গ্রামীন ফোন",
+                            "All",
+                            "Crypto",
+                            "Forex",
+                            "Metal",
+                            "Stocks",
                           ],
                           onChanged: (v) {
-                            if (v == "রবি") {
-                              controller.selectedSimType.value =
-                                  simType.robi.name;
-                            } else if (v == "এয়ারটেল") {
-                              controller.selectedSimType.value =
-                                  simType.airtel.name;
-                            } else if (v == "বাংলালিংক") {
-                              controller.selectedSimType.value =
-                                  simType.banglalink.name;
-                            } else if (v == "গ্রামীন ফোন") {
-                              controller.selectedSimType.value =
-                                  simType.gp.name;
+                            if (v == "Crypto") {
+                              controller.selectedCurencyType.value =
+                                  currencyType.crypto.name;
+                            } else if (v == "Forex") {
+                              controller.selectedCurencyType.value =
+                                  currencyType.forex.name;
+                            } else if (v == "Metal") {
+                              controller.selectedCurencyType.value =
+                                  currencyType.metal.name;
+                            } else if (v == "Stocks") {
+                              controller.selectedCurencyType.value =
+                                  currencyType.stock.name;
                             } else {
-                              controller.selectedSimType.value =
-                                  simType.all.name;
+                              controller.selectedCurencyType.value =
+                                  currencyType.all.name;
                             }
                           },
                           validator: (v) {
                             if (v == null || v.isEmpty) {
-                              return "Select Sim";
-                            } else {
-                              return null;
-                            }
-                          },
-                        ),
-                        Gap(25.w),
-                        MainDropdownPicker(
-                          labelText: "Select Type",
-                          initialValue:
-                              controller.selectedPackageType.value == ""
-                                  ? null
-                                  : controller.selectedPackageType.value,
-                          options: [
-                            packageType.bundle.name,
-                            packageType.minute.name,
-                            packageType.internet.name,
-                          ],
-                          onChanged: (v) {
-                            controller.selectedPackageType.value = v ?? "";
-                          },
-                          validator: (v) {
-                            if (v == null || v.isEmpty) {
-                              return "Select Type";
+                              return "Select Market";
                             } else {
                               return null;
                             }
@@ -145,8 +127,8 @@ class CreatePackage extends StatelessWidget {
                         ),
                         Gap(35.w),
                         MainInputFiled(
-                          hints: "Enter package title",
-                          textEditingController: controller.title,
+                          hints: "Enter Pair Name",
+                          textEditingController: controller.pair,
                           validator: (v) {
                             if (v == null || v.isEmpty) {
                               return "Enter package title";
@@ -157,11 +139,11 @@ class CreatePackage extends StatelessWidget {
                         ),
                         Gap(25.w),
                         MainInputFiled(
-                          hints: "Enter package Duration",
-                          textEditingController: controller.duration,
+                          hints: "Open Entry",
+                          textEditingController: controller.openEntry,
                           validator: (v) {
                             if (v == null || v.isEmpty) {
-                              return "Enter package Duration";
+                              return "Enter Open Entry";
                             } else {
                               return null;
                             }
@@ -169,92 +151,138 @@ class CreatePackage extends StatelessWidget {
                         ),
                         Gap(25.w),
                         MainInputFiled(
-                          hints: "Enter package Price",
-                          textEditingController: controller.price,
+                          hints: "Stop Loss",
+                          textEditingController: controller.stopLoss,
+                          keyboardType: TextInputType.number,
                           validator: (v) {
                             if (v == null || v.isEmpty) {
-                              return "Enter package Price";
+                              return "Stop Loss";
                             } else {
                               return null;
                             }
                           },
                         ),
-                        Gap(25.w),
+                        Gap(30.w),
+
                         MainInputFiled(
-                          hints: "Enter package Commission",
-                          textEditingController: controller.commission,
+                          hints: "TP1",
+                          textEditingController: controller.tp1,
+                          keyboardType: TextInputType.number,
                           validator: (v) {
                             if (v == null || v.isEmpty) {
-                              return "Enter package Commission";
+                              return "Enter TP1";
                             } else {
                               return null;
                             }
                           },
                         ),
-                        Gap(25.w),
+                        Gap(30.w),
                         MainInputFiled(
-                          hints: "How much you want to give discount",
-                          textEditingController: controller.discount,
-                          validator: (v) {
-                            if (v == null || v.isEmpty) {
-                              return "আপনার নাম লিখুন";
-                            } else {
-                              return null;
-                            }
-                          },
+                          hints: "TP2",
+                          textEditingController: controller.tp2,
+                          keyboardType: TextInputType.number,
+
                         ),
-                        Gap(25.w),
+                        Gap(30.w),
                         MainInputFiled(
-                          hints: "Package Details",
-                          textEditingController: controller.description,
-                          /*validator: (v) {
-                            if (v == null || v.isEmpty) {
-                              return "Package details required";
-                            } else {
-                              return null;
-                            }
-                          },*/
+                          hints: "TP 3",
+                          textEditingController: controller.tp3,
+                          keyboardType: TextInputType.number,
+
                         ),
-                        Gap(25.w),
-                        Obx(() {
-                          controller.isBestDeal.value;
-                          return InkWell(
-                            onTap: () {
-                              controller.isBestDeal.value =
-                                  !controller.isBestDeal.value;
-                            },
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 16.w,
-                                  width: 16.w,
-                                  decoration: BoxDecoration(
-                                      color: controller.isBestDeal.value
-                                          ? AppColors.mainColor
-                                          : AppColors.whiteColor,
-                                      border: Border.all(
-                                        color: AppColors.mainColor,
-                                        width: 1.w,
-                                      )),
-                                ),
-                                Gap(10.w),
-                                Text(
-                                  "Want to make it best deal?",
-                                  style: TextStyle(
-                                      color: AppColors.mainColor,
-                                      fontSize: 16.w,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
-                          );
-                        })
+
                       ],
                     ),
                   ),
                 ),
               ),
+
               Gap(30.w),
+
+              Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                child: Obx(() {
+                  controller.isSell.value;
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: MainButton(
+                          onTap: () {
+                            controller.isSell.value = true;
+                          },
+                          buttonText: "Sell",
+
+
+                          buttonColor: controller.isSell.value == true ? AppColors
+                              .mainColor : AppColors.inActiveButtonTextColor,
+                        ),
+                      ),
+                      Gap(10.w),
+                      Expanded(
+                        child: MainButton(
+                          onTap: () {
+                            controller.isSell.value = false;
+                          },
+                          buttonText: "Buy",
+
+
+                          buttonColor: controller.isSell.value == false ? AppColors
+                              .mainColor : AppColors.inActiveButtonTextColor,
+                        ),
+                      ),
+                    ],
+                  );
+                }),
+              ),
+
+
+
+              Gap(10.w),
+              Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 4.w),
+                child: Obx(() {
+                  controller.isSell.value;
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      MainButton(
+                        onTap: () {
+                          controller.status.value = "Running";
+                        },
+                        buttonText: "Running",
+
+
+                        buttonColor: controller.status.value == "Running" ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
+                      ),
+                      Gap(10.w),
+                      MainButton(
+                        onTap: () {
+                          controller.status.value = "Loss";
+                        },
+                        buttonText: "Loss",
+
+
+                        buttonColor: controller.status.value == "Loss" ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
+                      ),
+                      Gap(10.w),
+                      MainButton(
+                        onTap: () {
+                          controller.status.value = "Profit";
+                        },
+                        buttonText: "Profit",
+
+
+                        buttonColor: controller.status.value == "Profit" ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
+                      )
+                    ],
+                  );
+                }),
+              ),
+              Gap(20.w),
               MainButton(
                   onTap: () {
                     /*         if(controller.selectedSimType.value==simType.all.name||controller.selectedPackageType.value==""
@@ -270,8 +298,13 @@ class CreatePackage extends StatelessWidget {
               }*/
 
                     formKey.currentState!.save();
+
                     if (!formKey.currentState!.validate()) {
                       showErrorMessage("Fill all form");
+                      return;
+                    }
+                    if(controller.status==""){
+                      showErrorMessage("Select status");
                       return;
                     }
 
@@ -292,36 +325,17 @@ void _showConfirmationBottomSheet(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       double width =
-          MediaQuery.of(context).size.width * 0.40; // Adjust as needed
+          MediaQuery
+              .of(context)
+              .size
+              .width * 0.40; // Adjust as needed
       double height = Get.width * 0.60;
       return Container(
         padding: EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              padding: EdgeInsets.all(8.w),
-              decoration: BoxDecoration(
-                color: AppColors.mainColor,
-                borderRadius: BorderRadius.circular(10.w),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    "Earnings:${getEarnings(controller)}",
-                    style: TextStyle(color: AppColors.whiteColor),
-                  ),
-                  Text(
-                    "Cash out charge:${getCashoutCharge(getDiscountPrice(controller))}",
-                    style: TextStyle(color: AppColors.whiteColor),
-                  ),
-                  Text(
-                    "Revenue: ${getEarnings(controller) - getCashoutCharge(getDiscountPrice(controller))}",
-                    style: TextStyle(color: AppColors.whiteColor),
-                  ),
-                ],
-              ),
-            ),
+
             Text(
               'Are you sure?',
               style: TextStyle(
@@ -330,7 +344,6 @@ void _showConfirmationBottomSheet(BuildContext context) {
               ),
             ),
             SizedBox(height: 16),
-            SizedBox(width: width, height: height, child: ViewOfferItem()),
             Gap(10.w),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -363,22 +376,18 @@ void _showConfirmationBottomSheet(BuildContext context) {
 
 Future<void> submitPackageData(CreatePackageLogic controller) async {
   Map<String, dynamic> packageData = {
-    "title": controller.title.text,
-    "duration": int.parse(controller.duration.text),
-    "price": getDiscountPrice(controller).toDouble(),
+
+    "pair": controller.pair.text,
+    "open_entru":controller.openEntry.text,
+    "stop_loss":controller.stopLoss.text,
+    "tp1":controller.tp1.text,
+    "tp2":controller.tp2.text,
+    "tp3":controller.tp3.text,
     "date_time": DateTime.now(),
-    "package_rate": double.parse(controller.price.text),
-    "commission": double.parse(controller.commission.text),
-    "discount": double.parse(controller.discount.text),
-    "earnings": getEarnings(controller).toDouble(),
-    "revenue": (getEarnings(controller) -
-            getCashoutCharge(getDiscountPrice(controller)))
-        .toDouble(), // Assuming 6 is the cash out fee
-    "status": "active",
-    "sim": controller.selectedSimType.value,
-    "package_type": controller.selectedPackageType.value,
-    "hot_deal": controller.isBestDeal.value,
-    "description": controller.description.text,
+
+    "status": controller.status.value,
+    "market": controller.selectedCurencyType.value,
+    "action": controller.isSell.value,
   };
   EasyLoading.show();
   await FirebaseApi().createPackage(packageData,
@@ -388,131 +397,6 @@ Future<void> submitPackageData(CreatePackageLogic controller) async {
   showErrorMessage(title: "Success", "Product create complete");
 }
 
-enum simType { all, robi, airtel, banglalink, gp }
 
-class ViewOfferItem extends StatelessWidget {
-  ViewOfferItem({
-    super.key,
-  });
 
-  Color? simColor;
-  final controller = Get.put(CreatePackageLogic());
 
-  @override
-  Widget build(BuildContext context) {
-    simColor = getColor(controller.selectedSimType.value);
-
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(width: 4.w, color: simColor!),
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(12.w),
-                topLeft: Radius.circular(12.w),
-                bottomLeft: Radius.circular(22.w),
-                bottomRight: Radius.circular(14.w)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.10),
-                blurRadius: 2.0,
-                offset: const Offset(0, 4),
-              ),
-            ],
-            color: const Color(0xFFF8F8F8),
-          ),
-        ),
-        Positioned.fill(
-            child: Column(
-          children: [
-            Expanded(
-                child: Column(
-              children: [
-                Gap(5.w),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 8.w),
-                  child: Text(
-                    controller.title.text ?? "",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: simColor,
-                        fontSize: 16.w,
-                        fontWeight: FontWeight.w800),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.all(10.w),
-                    // height: 100.w,
-                    width: 95.w,
-                    decoration: BoxDecoration(
-                        color: simColor!.withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(8.w)),
-                    child: Center(
-                      child: Text(
-                        "মাত্র\n ${getDiscountPrice(controller)} ৳",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: simColor,
-                            fontSize: 18.w,
-                            fontWeight: FontWeight.w800),
-                      ),
-                    ),
-                  ),
-                ),
-                Gap(10.w),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.w),
-                  decoration: BoxDecoration(
-                      color: simColor!.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(8.w)),
-                  child: Text(
-                    "${controller.duration.text} দিন",
-                    style: TextStyle(
-                        color: simColor,
-                        fontSize: 16.w,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-                Gap(10.w),
-              ],
-            )),
-
-            // base on sim
-            if (controller.selectedSimType.value == simType.airtel.name)
-              Image.asset("asset/images/airtel.png"),
-            if (controller.selectedSimType.value == simType.gp.name)
-              Image.asset("asset/images/gp.png"),
-            if (controller.selectedSimType.value == simType.banglalink.name)
-              Image.asset("asset/images/banglalink.png"),
-            if (controller.selectedSimType.value == simType.robi.name)
-              Image.asset("asset/images/robi.png"),
-          ],
-        ))
-      ],
-    );
-  }
-}
-
-getDiscountPrice(controller) {
-  var mainPrice = double.parse(controller.price.text);
-  var commission = double.parse(controller.commission.text);
-  var discount = double.parse(controller.discount.text);
-  var priceForUser = mainPrice - discount;
-
-  return priceForUser;
-}
-
-getEarnings(controller) {
-  var commission = double.parse(controller.commission.text);
-  var discount = double.parse(controller.discount.text);
-  var earnings = commission - discount;
-
-  return earnings;
-}
-
-int getCashoutCharge(var price) {
-  double percentage = 1.9;
-  double result = price * percentage / 100;
-  return result.round();
-}

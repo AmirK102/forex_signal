@@ -12,6 +12,7 @@ class MainInputFiled extends StatefulWidget {
     this.onSave,
     this.readOnly=false,
     this.onChanged,
+    this.maxLine=1,
     this.validator, this.textAlign= TextAlign.left,
   });
 
@@ -20,6 +21,7 @@ class MainInputFiled extends StatefulWidget {
   TextEditingController? textEditingController;
   TextInputType? keyboardType;
   final TextAlign textAlign;
+  final int maxLine;
   final Function(String?)? onSave, onChanged;
   String? Function(String?)? validator;
 
@@ -101,12 +103,14 @@ class _MainInputFiledState extends State<MainInputFiled> {
           validator: widget.validator,
           controller: widget.textEditingController,
           keyboardType: widget.keyboardType,
+          maxLines: widget.maxLine,
           style: TextStyle(
               color: AppColors.mainColor,
               fontWeight: FontWeight.w600,
               fontSize: 16.w,
               letterSpacing: letterSpacing),
           decoration: InputDecoration(
+
             filled: true,
             fillColor: Colors.transparent,
             border: OutlineInputBorder(

@@ -63,20 +63,20 @@ class PackageViewPage extends StatelessWidget {
                           "গ্রামীন ফোন",
                         ],
                         onChanged: (v) {
-                          if (v == "রবি") {
+           /*               if (v == "রবি") {
                             controller.selectedSimType.value =
-                                simType.robi.name;
+                                MarketType.robi.name;
                           } else if (v == "এয়ারটেল") {
                             controller.selectedSimType.value =
-                                simType.airtel.name;
+                                MarketType.airtel.name;
                           } else if (v == "বাংলালিংক") {
                             controller.selectedSimType.value =
-                                simType.banglalink.name;
+                                MarketType.banglalink.name;
                           } else if (v == "গ্রামীন ফোন") {
-                            controller.selectedSimType.value = simType.gp.name;
+                            controller.selectedSimType.value = MarketType.gp.name;
                           } else {
-                            controller.selectedSimType.value = simType.all.name;
-                          }
+                            controller.selectedSimType.value = MarketType.all.name;
+                          }*/
                         },
                       ),
                       Gap(15.w),
@@ -158,18 +158,18 @@ class PackageViewPage extends StatelessWidget {
                 ),
               ),
               Obx(() {
-                controller.selectedSimType.value;
-                return StreamBuilder<List<PackageModel>>(
+                controller.selectedMarketType.value;
+                return StreamBuilder<List<SignalModel>>(
                     stream: FirebaseApi().getAllPackagesStream(
                       ascending: controller.lowToHigh.value,
-                      packageType: controller.selectedPackageCategory.value,
-                      sim: controller.selectedSimType.value == "all"
+                     // packageType: controller.selectedPackageCategory.value,
+                      marketType: controller.selectedMarketType.value == "all"
                           ? null
-                          : controller.selectedSimType.value,
+                          : controller.selectedMarketType.value,
                     ),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        List<PackageModel>? data = snapshot.data;
+                        List<SignalModel>? data = snapshot.data;
 
                         return SliverGrid.builder(
                           itemCount: data!.length,
@@ -185,10 +185,10 @@ class PackageViewPage extends StatelessWidget {
                                 Get.to(() => editPackage.CreatePackage(),
                                     arguments: data[index]);
                               },
-                              child: ViewOfferItem(
+                              child: Container()/*ViewOfferItem(
                                 simTypeName: data[index].sim,
                                 data: data[index],
-                              ),
+                              )*/,
                             );
                           },
                         );
@@ -208,14 +208,6 @@ class PackageViewPage extends StatelessWidget {
   }
 }
 
-getColor(simTypeName) {
-  print(simTypeName);
-  if (simTypeName == simType.airtel.name) return AppColors.airtelColor;
-  if (simTypeName == simType.gp.name) return AppColors.grameenCOlor;
-  if (simTypeName == simType.banglalink.name) return AppColors.banglalinkColor;
-  if (simTypeName == simType.robi.name) return AppColors.robiColor;
-  return AppColors.grameenCOlor;
-}
 
 
 class ProfileImageWidget extends StatelessWidget {

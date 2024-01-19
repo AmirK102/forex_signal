@@ -7,6 +7,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:package_panda/admin_pages/create_package.dart';
+import 'package:package_panda/admin_pages/create_post.dart';
 import 'package:package_panda/admin_pages/package_details.dart';
 import 'package:package_panda/admin_pages/package_view_page.dart' as adminPackage;
 import 'package:package_panda/admin_pages/payment_methods.dart';
@@ -14,13 +15,13 @@ import 'package:package_panda/common_function/main_button.dart';
 import 'package:package_panda/common_widget/MainDropdownPicker.dart';
 import 'package:package_panda/common_widget/MainInputFiled.dart';
 import 'package:package_panda/controller/admin_home_controller.dart';
+import 'package:package_panda/model/PackageModel.dart';
 import 'package:package_panda/model/TransactionModel.dart';
 import 'package:package_panda/pages/home_page.dart';
 import 'package:package_panda/pages/order_page.dart';
 import 'package:package_panda/repository/firebase_api.dart';
 import 'package:package_panda/utilities/app_colors.dart';
 
-enum simType { all, robi, airtel, banglalink, gp }
 
 class AdminHomePage extends StatelessWidget {
   AdminHomePage({super.key});
@@ -40,11 +41,11 @@ class AdminHomePage extends StatelessWidget {
               Gap(10.w),
               SizedBox(
                   child: MainButtonSmall(
-                onTap: () {
-                  Get.to(() => PaymentMethods());
-                },
-                buttonText: "Change Payment Method",
-              )),
+                    onTap: () {
+                      Get.to(() => PaymentMethods());
+                    },
+                    buttonText: "Change Payment Method",
+                  )),
               Gap(15.w),
               Row(
                 children: [
@@ -55,8 +56,8 @@ class AdminHomePage extends StatelessWidget {
                         onTap: () {
                           Get.to(() => CreatePackage());
                         },
-                        buttonText: "Add Package",
-                       // isIcon: true,
+                        buttonText: "Add Signal",
+                        // isIcon: true,
                         icon: FontAwesomeIcons.plus,
                       ),
                     ),
@@ -69,7 +70,38 @@ class AdminHomePage extends StatelessWidget {
                         onTap: () {
                           Get.to(() => adminPackage.PackageViewPage());
                         },
-                        buttonText: "Edit Package",
+                        buttonText: "Edit Signal",
+
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Gap(15.w),
+              Row(
+                children: [
+                  Flexible(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: MainButtonSmall(
+                        onTap: () {
+                          Get.to(() => CreatePost());
+                        },
+                        buttonText: "Add Post",
+                        // isIcon: true,
+                        icon: FontAwesomeIcons.plus,
+                      ),
+                    ),
+                  ),
+                  Gap(10.w),
+                  Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: MainButtonSmall(
+                        onTap: () {
+                          Get.to(() => adminPackage.PackageViewPage());
+                        },
+                        buttonText: "Edit Post",
 
                       ),
                     ),
@@ -79,7 +111,7 @@ class AdminHomePage extends StatelessWidget {
 
 
               Gap(15.w),
-              SingleChildScrollView(
+              /*    SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.symmetric(vertical: 8.w),
                 child: Obx(() {
@@ -126,36 +158,116 @@ class AdminHomePage extends StatelessWidget {
                     ],
                   );
                 }),
-              ),
+              ),*/
               Gap(10.w),
-              SizedBox(
-                height: 50,
+
+              /*  SizedBox(
+                height: 50.w,
                 child: MainDropdownPicker(
+                  labelText: "Select Market",
+                  initialValue: controller.selectedCurencyType.value ==
+                      ""
+                      ? null
+                      : getPackage(
+                      controller.selectedCurencyType.value),
                   options: [
-                    "সব সিম",
-                    "রবি",
-                    "এয়ারটেল",
-                    "বাংলালিংক",
-                    "গ্রামীন ফোন",
+                    "All",
+                    "Crypto",
+                    "Forex",
+                    "Metal",
+                    "Stocks",
                   ],
-                  labelText: "একটি SIM নির্বাচন করুন",
                   onChanged: (v) {
-                    if (v == "রবি") {
-                      controller.selectedSimType.value = simType.robi.name;
-                    } else if (v == "এয়ারটেল") {
-                      controller.selectedSimType.value = simType.airtel.name;
-                    } else if (v == "বাংলালিংক") {
-                      controller.selectedSimType.value = simType.banglalink.name;
-                    } else if (v == "গ্রামীন ফোন") {
-                      controller.selectedSimType.value = simType.gp.name;
+                    if (v == "Crypto") {
+                      controller.selectedCurencyType.value =
+                          currencyType.crypto.name;
+                    } else if (v == "Forex") {
+                      controller.selectedCurencyType.value =
+                          currencyType.forex.name;
+                    } else if (v == "Metal") {
+                      controller.selectedCurencyType.value =
+                          currencyType.metal.name;
+                    } else if (v == "Stocks") {
+                      controller.selectedCurencyType.value =
+                          currencyType.stock.name;
                     } else {
-                      controller.selectedSimType.value = simType.all.name;
+                      controller.selectedCurencyType.value =
+                          currencyType.all.name;
+                    }
+                  },
+                  validator: (v) {
+                    if (v == null || v.isEmpty) {
+                      return "Select Market";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+              ),*/
+
+              SizedBox(
+                height: 50.w,
+                child: MainDropdownPicker(
+                  labelText: "Select Market",
+
+                  options: [
+                    "All",
+                    "Crypto",
+                    "Forex",
+                    "Metal",
+                    "Stocks",
+                  ],
+                  onChanged: (v) {
+                    if (v == "Crypto") {
+                      controller.selectedMarketType.value =
+                          currencyType.crypto.name;
+                    } else if (v == "Forex") {
+                      controller.selectedMarketType.value =
+                          currencyType.forex.name;
+                    } else if (v == "Metal") {
+                      controller.selectedMarketType.value =
+                          currencyType.metal.name;
+                    } else if (v == "Stocks") {
+                      controller.selectedMarketType.value =
+                          currencyType.stock.name;
+                    } else {
+                      controller.selectedMarketType.value =
+                          currencyType.all.name;
+                    }
+                  },
+                  validator: (v) {
+                    if (v == null || v.isEmpty) {
+                      return "Select Market";
+                    } else {
+                      return null;
                     }
                   },
                 ),
               ),
+
               Gap(10.w),
-              SizedBox(
+              Obx(() {
+                controller.selectedButton.value;
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    MainButton(onTap: () {
+                      controller.selectedButton.value="Signal";
+                    }, buttonText: "Signal",
+
+                        buttonColor: controller.selectedButton.value!="Signal"?AppColors.inActiveButtonColor:AppColors.mainColor,
+                    ),
+                    MainButton(onTap: () {
+                      controller.selectedButton.value="Post";
+                    }, buttonText: "Post",
+                      buttonColor: controller.selectedButton.value!="Post"?AppColors.inActiveButtonColor:AppColors.mainColor,
+
+                    ),
+                  ],
+                );
+              }),
+
+              /*   SizedBox(
                 height: 45,
                 child: Row(
                   children: [
@@ -173,24 +285,23 @@ class AdminHomePage extends StatelessWidget {
                         buttonText: "Search")
                   ],
                 ),
-              ),
+              ),*/
               Gap(10.w),
               Expanded(child: Obx(() {
-                FirebaseApi()
-                    .getTransactionsStreamAdmin(
-                      status: controller.selectedButton.value,
-                      sim: controller.selectedSimType.value,
-                      transactionId: textEditingController.text,
-                    )
-                    .listen((event) {});
-                return StreamBuilder<List<TransactionModel>>(
-                    stream: FirebaseApi().getTransactionsStreamAdmin(
-                      status: controller.selectedButton.value,
-                      sim: controller.selectedSimType.value,
-                      transactionId: textEditingController.text,
+
+
+                return StreamBuilder<List<SignalModel>>(
+                    stream: FirebaseApi().getAllPackagesStream(
+                      // ascending: controller.lowToHigh.value,
+                      //packageType: controller.selectedPackageCategory.value,
+                      marketType: controller.selectedMarketType.value == "all"
+                          ? null
+                          : controller.selectedMarketType.value,
                     ),
                     builder: (context, snapshot) {
                       print(snapshot.data);
+                      print("snapshot.hasError");
+                      print(snapshot.hasError);
 
                       if (snapshot.hasData) {
                         return ListView.builder(
@@ -198,16 +309,9 @@ class AdminHomePage extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  Get.to(() => PackageDetails(
-                                        simColor:
-                                            getColor(snapshot.data![index].sim),
-                                        data: snapshot.data![index],
-                                      ));
+                                  //Get.to(() => SignalCard(data: snapshot.data[index]));
                                 },
-                                child: ProductCard(
-                                  simTypeName: snapshot.data![index].sim,
-                                  data: snapshot.data![index],
-                                ),
+                                child: SignalCard(data: snapshot.data![index]),
                               );
                             });
                       }
@@ -221,7 +325,7 @@ class AdminHomePage extends StatelessWidget {
     );
   }
 }
-
+/*
 class ProductCard extends StatelessWidget {
   ProductCard({super.key, this.simTypeName, required this.data});
 
@@ -231,7 +335,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    simColor = getColor(simTypeName);
+   // simColor = getColor(simTypeName);
     return Container(
       padding: EdgeInsets.all(10.w),
       margin: EdgeInsets.symmetric(vertical: 5.w),
@@ -420,14 +524,14 @@ Container packageInfo({required TransactionModel data}) {
       ],
     ),
   );
-}
+}*/
 
 String formatDateTime(DateTime dateTime) {
   final formatter = DateFormat('MM/dd/yy hh:mm a');
   return formatter.format(dateTime);
 }
 
-Container receiverInfo({required TransactionModel data}) {
+/*Container receiverInfo({required TransactionModel data}) {
   return Container(
     padding: EdgeInsets.all(15.w),
     decoration: BoxDecoration(
@@ -698,7 +802,7 @@ Container receiverInfo({required TransactionModel data}) {
       ],
     ),
   );
-}
+}*/
 
 Container paymentScreenshot(
     {simColor, height, width, required TransactionModel data}) {

@@ -1,10 +1,13 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
-enum simType {all, robi, airtel, banglalink, gp }
+import 'package:get/get.dart';
+import 'package:package_panda/controller/home_page_controller.dart';
+
 class AdminHomeLogic extends GetxController{
 
-  RxString selectedButton="paymentVerified".obs;
-  RxString selectedSimType= simType.all.name.obs;
+  RxString selectedButton="Signal".obs;
+  RxString selectedMarketType= MarketType.all.name.obs;
+  //MarketType.crypto.name.obs;
 
   @override
   void onInit() {

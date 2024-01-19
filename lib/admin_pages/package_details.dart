@@ -34,7 +34,7 @@ class PackageDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: Container() /*Column(
           children: [
             Row(
               children: [
@@ -396,7 +396,7 @@ class PackageDetails extends StatelessWidget {
                                   ),
                                   Gap(5.w),
                                   Text(
-                                    "Cash out Charge: ${getCashoutCharge(data.price)}",
+                                    "Cash out Charge: 0",
                                     style: TextStyle(
                                         fontSize: 16.w,
                                         color: AppColors.whiteColor),
@@ -419,7 +419,7 @@ class PackageDetails extends StatelessWidget {
                   }),
             ),
           ],
-        ),
+        ),*/
       ),
     );
   }

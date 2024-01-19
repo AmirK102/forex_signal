@@ -226,30 +226,27 @@ class FirebaseApi {
     }
   }
 
-  Stream<List<PackageModel>> getAllPackagesStream({
-    String? sim,
+  Stream<List<SignalModel>> getAllPackagesStream({
+    String? marketType,
     String? packageType,
     bool ascending = true,
   }) {
     try {
       Query query = _firestore.collection('packages');
 
-      if (sim != null) {
-        query = query.where('sim', isEqualTo: sim);
+      if (marketType != null) {
+        query = query.where('market', isEqualTo: marketType);
       }
 
-      if (packageType != null) {
-        query = query.where('package_type', isEqualTo: packageType);
-      }
+
 
       // Add sorting based on ascending/descending order
-      query = query.orderBy('price', descending: !ascending);
 
       return query.snapshots().map((querySnapshot) {
         print('getting packages stream: ');
 
         return querySnapshot.docs.map((document) {
-          return PackageModel.fromJson(document.data() as Map<String, dynamic>);
+          return SignalModel.fromJson(document.data() as Map<String, dynamic>);
         }).toList();
       });
     } catch (e) {
@@ -283,42 +280,39 @@ class FirebaseApi {
     }
   }
 
-  Future<bool> createOrder(Map<String, dynamic> data, transactionId) async {
+  Future<void> createOrder(Map<String, dynamic> data, ) async {
     var doc = _firestore.collection('orders').doc();
 
     data.addAll({
       "id": doc.id,
-      "message": "আপনার অনুরোধটি গ্রহণ করা হয়েছে",
-      "confirm_date_time": DateTime.now(),
-      "user_id": UserId,
-      "status": "pending",
+
     });
 
-    var res = await isValidTransaction(transactionId);
-
-    if (res == true) {
-      if (!isLink(data["screenshot"])) {
-        var link = await uploadImageToStorage(File(data["screenshot"]));
-        data.addAll({"screenshot": link});
-      }
-      print(data);
-      await doc.set(data);
-      sendPushMessage(
-        title: "Order Confirm!",
-        message: "New order $transactionId",
-        token: "adminNotifications",
-      );
-      return true;
-    } else {
-      return false;
+    //return true;
+    if(data["screenshot"]!=""){
+      var link = await uploadImageToStorage(File(data["screenshot"]));
+      data.addAll({"screenshot": link});
     }
+
+    await doc.set(data);
+  }
+  Future<void> giveLike(id,count) async {
+     await _firestore.collection('orders').doc(id).update({
+      "like": count+1
+    });
+  }
+
+  Future<void> giveDisLike(id,count) async {
+    await _firestore.collection('orders').doc(id).update({
+      "dislike": count+1
+    });
   }
 
   Stream<List<TransactionModel>> getTransactionsByUserIdStream() {
     return _firestore
         .collection('orders')
-        .where('user_id', isEqualTo: UserId)
-        .orderBy('confirm_date_time', descending: true)
+
+        .orderBy('date_time', descending: true)
         .snapshots()
         .map((querySnapshot) {
       return querySnapshot.docs.map((document) {
@@ -471,7 +465,7 @@ class FirebaseApi {
       senderAvaterUrl:
           "https://t4.ftcdn.net/jpg/00/91/24/17/240_F_91241738_y1y50vmBrGZPvkbyCPf9nEhX7bOUFs74.jpg",
       message: message,
-      title: data.title,
+      title: data.pair,
     );
   }
 
@@ -484,7 +478,7 @@ class FirebaseApi {
       "message": message,
       "orderRejectBy": userModel!.toJson()
     });
-
+/*
     sendPushMessage(
       token: data.userObj!.uid!,
       imageUrl: data.screenshot,
@@ -492,7 +486,7 @@ class FirebaseApi {
       "https://t4.ftcdn.net/jpg/00/91/24/17/240_F_91241738_y1y50vmBrGZPvkbyCPf9nEhX7bOUFs74.jpg",
       message: message,
       title: data.title,
-    );
+    );*/
   }
 
   Future<bool> setWorkingStatusForOrder(id, name, uid) async {

@@ -106,7 +106,7 @@ class HomePage extends StatelessWidget {
                   return;
                 }
 
-                Get.to(() => HistoryPage());
+                Get.to(() => TimeLinePage());
               },
             ),
             ListTile(
@@ -253,11 +253,8 @@ class HomePage extends StatelessWidget {
                     Gap(10.w),
                     InkWell(
                       onTap: () {
-                        if (FirebaseApi.UserId == "") {
-                          Get.to(() => LoginPage());
-                          return;
-                        }
-                        Get.to(() => HistoryPage());
+
+                        Get.to(() => TimeLinePage());
                       },
                       child: Container(
                         //   margin: EdgeInsets.only(top: 15.w),
@@ -272,7 +269,7 @@ class HomePage extends StatelessWidget {
                             )),
                         child: Center(
                           child: Text(
-                            "ট্রানস্যাকশন হিস্টোরি",
+                            "Timeline",
                             style: TextStyle(
                                 color: AppColors.whiteColor,
                                 fontSize: 16.w,
@@ -290,8 +287,8 @@ class HomePage extends StatelessWidget {
                  automaticallyImplyLeading: false,
                 pinned: true,
                 backgroundColor: Colors.white,
-                collapsedHeight: 145.w,
-                expandedHeight: 150.w,
+               // collapsedHeight: 100.w,
+               // expandedHeight: 100.w,
                 actions: <Widget>[Container()],
                 flexibleSpace: Container(
                   color: Colors.white,
@@ -300,31 +297,33 @@ class HomePage extends StatelessWidget {
                       MainDropdownPicker(
                         labelText: "একটি সিম বাছাই করুন",
                         options: [
-                          "সব সিম",
-                          "রবি",
-                          "এয়ারটেল",
-                          "বাংলালিংক",
-                          "গ্রামীন ফোন",
+                          "All",
+                          "Crypto",
+                          "Forex",
+                          "Metal",
+                          "Stocks",
                         ],
                         onChanged: (v) {
-                          if (v == "রবি") {
-                            controller.selectedSimType.value =
-                                simType.robi.name;
-                          } else if (v == "এয়ারটেল") {
-                            controller.selectedSimType.value =
-                                simType.airtel.name;
-                          } else if (v == "বাংলালিংক") {
-                            controller.selectedSimType.value =
-                                simType.banglalink.name;
-                          } else if (v == "গ্রামীন ফোন") {
-                            controller.selectedSimType.value = simType.gp.name;
+                          if (v == "Crypto") {
+                            controller.selectedMarketType.value =
+                                MarketType.crypto.name;
+                          } else if (v == "Forex") {
+                            controller.selectedMarketType.value =
+                                MarketType.forex.name;
+                          } else if (v == "Metal") {
+                            controller.selectedMarketType.value =
+                                MarketType.metal.name;
+                          } else if (v == "Stocks") {
+                            controller.selectedMarketType.value =
+                                MarketType.stock.name;
                           } else {
-                            controller.selectedSimType.value = simType.all.name;
+                            controller.selectedMarketType.value =
+                                MarketType.all.name;
                           }
                         },
                       ),
-                      Gap(15.w),
-                      Obx(() {
+                    //  Gap(15.w),
+                   /*   Obx(() {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -395,115 +394,37 @@ class HomePage extends StatelessWidget {
                             ],
                           ),
                         );
-                      }),
+                      }),*/
                       //Gap(10.w),
                     ],
                   ),
                 ),
               ),
               Obx(() {
-                controller.selectedSimType.value;
-                return StreamBuilder<List<PackageModel>>(
+                controller.selectedMarketType.value;
+                return StreamBuilder<List<SignalModel>>(
                     stream: FirebaseApi().getAllPackagesStream(
                       ascending: controller.lowToHigh.value,
                       packageType: controller.selectedPackageCategory.value,
-                      sim: controller.selectedSimType.value == "all"
+                      marketType: controller.selectedMarketType.value == "all"
                           ? null
-                          : controller.selectedSimType.value,
+                          : controller.selectedMarketType.value,
                     ),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        List<PackageModel>? data = snapshot.data!;
+                        List<SignalModel>? data = snapshot.data!;
 
                         return SliverList(
 
                             delegate: SliverChildBuilderDelegate(
-                                    childCount: 5,
+                                    childCount: snapshot.data!.length,
                                     (context, index) {
                           return InkWell(
                             onTap: () {
-                              Get.to(() => OrderPage(data: data[index]),
-                                  arguments: getColor(data[index].sim));
+                              Get.to(() => OrderPage(signalData:snapshot.data![index] ),
+                                 );
                             },
-                            child: Container(
-                              margin: EdgeInsets.only(bottom: 10.w),
-                              padding: EdgeInsets.all(15.w),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.w),
-                                color: AppColors.whiteColor,
-                                border: Border.all(
-                                  color: AppColors.mainColor.withOpacity(0.5),
-                                  width: 1.w
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColors.shadowColor,
-                                    blurRadius: 5.0,
-                                    offset: Offset(0,3)
-                                  ),
-
-                                ]
-                              ),
-
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(8.w),
-
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.w),
-                                      border: Border.all(
-                                          color: AppColors.mainColor.withOpacity(0.5),
-                                          width: 1.w
-                                      ),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text("BTCUSD",style: TextStyle(color: AppColors.mainColor,fontSize: 20.w,fontWeight: FontWeight.w600),),
-                                        Gap(5.w),
-                                        Text("10:22 2/3/2024",style: TextStyle(color: AppColors.shadowColor,fontSize: 14.w,fontWeight: FontWeight.w400),),
-                                      ],
-                                    ),
-                                  ),
-
-                                  Container(
-                                    padding: EdgeInsets.all(8.w),
-
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.w),
-                                      border: Border.all(
-                                          color: AppColors.mainColor.withOpacity(0.5),
-                                          width: 1.w
-                                      ),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text("Active",style: TextStyle(color: AppColors.grameenCOlor,fontSize: 20.w,fontWeight: FontWeight.w600),),
-                                        Gap(5.w),
-                                        Text("Tp-1",style: TextStyle(color: AppColors.banglalinkColor,fontSize: 16.w,fontWeight: FontWeight.w400),),
-                                      ],
-                                    ),
-                                  ),
-
-                                  Container(
-                                      padding: EdgeInsets.all(8.w),
-
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10.w),
-                                        border: Border.all(
-                                            color: AppColors.mainColor.withOpacity(0.5),
-                                            width: 1.w
-                                        ),
-                                      ),
-
-                                      child: Text("Buy",style: TextStyle(color: AppColors.mainColor,fontSize: 24.w,fontWeight: FontWeight.w600),))
-                                  
-                                ],
-                              ),
-                            ),
+                            child: SignalCard(data: snapshot.data![index]),
                           );
                         }));
 
@@ -546,226 +467,99 @@ class HomePage extends StatelessWidget {
   }
 }
 
-getColor(simTypeName) {
-  print(simTypeName);
-  if (simTypeName == simType.airtel.name) return AppColors.airtelColor;
-  if (simTypeName == simType.gp.name) return AppColors.grameenCOlor;
-  if (simTypeName == simType.banglalink.name) return AppColors.banglalinkColor;
-  if (simTypeName == simType.robi.name) return AppColors.robiColor;
-  return AppColors.grameenCOlor;
-}
-
-class ViewOfferItem extends StatelessWidget {
-  ViewOfferItem({
+class SignalCard extends StatelessWidget {
+  const SignalCard({
     super.key,
-    this.simTypeName,
     required this.data,
   });
 
-  final simTypeName;
-  final PackageModel data;
-
-  Color? simColor;
+  final SignalModel? data;
 
   @override
   Widget build(BuildContext context) {
-    simColor = getColor(simTypeName);
-
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(width: 4.w, color: simColor!),
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(12.w),
-                topLeft: Radius.circular(12.w),
-                bottomLeft: Radius.circular(22.w),
-                bottomRight: Radius.circular(14.w)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.10),
-                blurRadius: 2.0,
-                offset: const Offset(0, 4),
-              ),
-            ],
-            color: const Color(0xFFF8F8F8),
-          ),
+    return Container(
+      margin: EdgeInsets.only(bottom: 10.w),
+      padding: EdgeInsets.all(15.w),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.w),
+        color: AppColors.whiteColor,
+        border: Border.all(
+          color: AppColors.mainColor.withOpacity(0.5),
+          width: 1.w
         ),
-        Positioned.fill(
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadowColor,
+            blurRadius: 5.0,
+            offset: Offset(0,3)
+          ),
+
+        ]
+      ),
+
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            padding: EdgeInsets.all(8.w),
+
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.w),
+              border: Border.all(
+                  color: AppColors.mainColor.withOpacity(0.5),
+                  width: 1.w
+              ),
+            ),
             child: Column(
-          children: [
-            Expanded(
-                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Gap(10.w),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 5.w,
-                  ),
-                  child: Text(
-                    data.title ?? "",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: simColor,
-                        fontSize: 16.w,
-                        fontWeight: FontWeight.w800),
-                  ),
-                ),
+                Text(data!.pair??"",style: TextStyle(color: AppColors.mainColor,fontSize: 20.w,fontWeight: FontWeight.w600),),
                 Gap(5.w),
-                Expanded(
-                  child: Stack(
-                    children: [
-
-
-                      Center(
-                        child: Container(
-                          padding: EdgeInsets.all(3.w),
-                          // height: 100.w,
-                          width: 95.w,
-                          decoration: BoxDecoration(
-                              color: simColor!.withOpacity(0.15),
-                              borderRadius: BorderRadius.circular(8.w),
-                         /* border: Border.all(
-                            color: data.hotDeal==true? simColor!: Colors.transparent,
-                            width: 3,
-                          )*/
-                          ),
-                          child: Center(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "${data.packageRate!.toStringAsFixed(0)} ৳",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: simColor,
-                                      decoration: TextDecoration.lineThrough,
-                                      decorationColor:
-                                          AppColors.inActiveButtonTextColor,
-                                      decorationThickness: 1.2,
-                                      fontSize: 12.w,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                Text(
-                                  "মাত্র",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: simColor,
-                                      fontSize: 16.w,
-                                      fontWeight: FontWeight.w800),
-                                ),
-                                Text(
-                                  "${data.price!.toStringAsFixed(0)} ৳",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: simColor,
-                                      fontSize: 18.w,
-                                      fontWeight: FontWeight.w800),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(vertical:  2.w,horizontal: 5.w),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(8.w)),
-                                    color: AppColors.whiteColor.withOpacity(0.73),
-                                    border: Border.all(
-                                      color: simColor!.withOpacity(0.35)
-                                    )
-                                  ),
-                                  child: Text(
-                                    "Save ${data.discount!.toStringAsFixed(0)} ৳",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: simColor,
-                                        fontSize: 14.w,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      if(data.hotDeal==true)
-                        Positioned.fill(
-                          child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                // color: Colors.yellow,
-                                  child: Container(
-                                      height: 18.w,
-                                      child: CachedNetworkImage(
-                                        imageUrl: "https://images.squarespace-cdn.com/content/v1/528d3636e4b06e6e83ecb6c9/1557365804845-M9Y7X95Z0VB0WZ8WICOK/Seasons_Social_Hot-Deal_R1_v2.gif?format=1500w",
-                                        height: 18.w,
-                                        width: 70.w,
-                                        fit: BoxFit.fitWidth,
-
-                                      )))),
-                        ),
-                    ],
-                  ),
-                ),
-                Gap(8.w),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.w),
-                  decoration: BoxDecoration(
-                      color: simColor!.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(8.w)),
-                  child: Text(
-                    "${data.duration} দিন",
-                    style: TextStyle(
-                        color: simColor,
-                        fontSize: 16.w,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-                Gap(3.w),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 5.w,
-                  ),
-                  child: Text(
-                    data.description ?? "",
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: simColor,
-                        fontSize: 12.w,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ),
-                Gap(5.w),
+                Text("10:22 2/3/2024",style: TextStyle(color: AppColors.shadowColor,fontSize: 14.w,fontWeight: FontWeight.w400),),
               ],
-            )),
+            ),
+          ),
 
-            // base on sim
-            if (simTypeName == simType.airtel.name)
-              Image.asset("asset/images/airtel.png"),
-            if (simTypeName == simType.gp.name)
-              Image.asset("asset/images/gp.png"),
-            if (simTypeName == simType.banglalink.name)
-              Image.asset("asset/images/banglalink.png"),
-            if (simTypeName == simType.robi.name)
-              Image.asset("asset/images/robi.png"),
-          ],
-        )),
-        /*Positioned.fill(
-          bottom: -15,
-            right: -15,
-            child: Align(
-                alignment: Alignment.bottomRight,
-                child: Image.asset(
+          Container(
+            padding: EdgeInsets.all(8.w),
 
-                  "asset/images/hot_deal.png", width:100.w,fit: BoxFit.contain,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.w),
+              border: Border.all(
+                  color: AppColors.mainColor.withOpacity(0.5),
+                  width: 1.w
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(data!.action!?"Sell":"Buy",style: TextStyle(color: AppColors.grameenCOlor,fontSize: 20.w,fontWeight: FontWeight.w600),),
 
-                ))),*/
-      ],
+              ],
+            ),
+          ),
+
+          Container(
+              padding: EdgeInsets.all(8.w),
+
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.w),
+                border: Border.all(
+                    color: AppColors.mainColor.withOpacity(0.5),
+                    width: 1.w
+                ),
+              ),
+
+              child: Text(data!.status!,style: TextStyle(color: AppColors.mainColor,fontSize: 20.w,fontWeight: FontWeight.w600),))
+
+        ],
+      ),
     );
   }
 }
+
+
+
 
 class ProfileImageWidget extends StatelessWidget {
   const ProfileImageWidget({
