@@ -4,24 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9302b8a-33fd-4e95-9ab0-4a7507d2d2f2" name="Changes" comment="signal and post added">
-      <change afterPath="$PROJECT_DIR$/lib/admin_pages/update_post.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/admin_pages/update_signal.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/controller/update_post_controller.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/controller/update_signal_controller.dart" afterDir="false" />
+    <list default="true" id="a9302b8a-33fd-4e95-9ab0-4a7507d2d2f2" name="Changes" comment="gfg">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/admin_pages/admin_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/admin_pages/admin_home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/admin_pages/create_package.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/admin_pages/create_signal.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/admin_pages/create_post.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/admin_pages/create_post.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/admin_pages/package_details.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/admin_pages/package_view_page.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/model/TransactionModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/TransactionModel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/auth_pages/create_profile_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/auth_pages/create_profile_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/auth_pages/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/auth_pages/login_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/home_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/transaction_history.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/transaction_history.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repository/firebase_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/firebase_api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,12 +68,20 @@
       <option name="project" value="LOCAL" />
       <updated>1705692903606</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="gfg">
+      <created>1705760051438</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1705760051438</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="signal and post added" />
-    <option name="LAST_COMMIT_MESSAGE" value="signal and post added" />
+    <MESSAGE value="gfg" />
+    <option name="LAST_COMMIT_MESSAGE" value="gfg" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
