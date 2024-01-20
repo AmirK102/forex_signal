@@ -295,12 +295,12 @@ class HomePage extends StatelessWidget {
                   child: Column(
                     children: [
                       MainDropdownPicker(
-                        labelText: "একটি সিম বাছাই করুন",
+                        labelText: "Select Market",
                         options: [
                           "All",
                           "Crypto",
                           "Forex",
-                          "Metal",
+                          "Metals",
                           "Stocks",
                         ],
                         onChanged: (v) {
@@ -310,7 +310,7 @@ class HomePage extends StatelessWidget {
                           } else if (v == "Forex") {
                             controller.selectedMarketType.value =
                                 MarketType.forex.name;
-                          } else if (v == "Metal") {
+                          } else if (v == "Metals") {
                             controller.selectedMarketType.value =
                                 MarketType.metal.name;
                           } else if (v == "Stocks") {

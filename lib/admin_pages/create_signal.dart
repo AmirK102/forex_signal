@@ -35,8 +35,8 @@ getPackage(value) {
   return "";
 }
 
-class CreatePackage extends StatelessWidget {
-  CreatePackage({
+class CreateSignal extends StatelessWidget {
+  CreateSignal({
     super.key,
   });
 
@@ -96,7 +96,7 @@ class CreatePackage extends StatelessWidget {
                             "All",
                             "Crypto",
                             "Forex",
-                            "Metal",
+                            "Metals",
                             "Stocks",
                           ],
                           onChanged: (v) {
@@ -106,7 +106,7 @@ class CreatePackage extends StatelessWidget {
                             } else if (v == "Forex") {
                               controller.selectedCurencyType.value =
                                   currencyType.forex.name;
-                            } else if (v == "Metal") {
+                            } else if (v == "Metals") {
                               controller.selectedCurencyType.value =
                                   currencyType.metal.name;
                             } else if (v == "Stocks") {
@@ -390,7 +390,7 @@ Future<void> submitPackageData(CreatePackageLogic controller) async {
     "action": controller.isSell.value,
   };
   EasyLoading.show();
-  await FirebaseApi().createPackage(packageData,
+  await FirebaseApi().createSignal(packageData,
       id: controller.data == null ? null : controller.data!.id,
       isUpdate: controller.data != null);
   EasyLoading.dismiss();

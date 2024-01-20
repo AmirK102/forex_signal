@@ -6,11 +6,11 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-TransactionModel transactionModelFromJson(String str) => TransactionModel.fromJson(json.decode(str));
+PostModel transactionModelFromJson(String str) => PostModel.fromJson(json.decode(str));
 
-String transactionModelToJson(TransactionModel data) => json.encode(data.toJson());
+String transactionModelToJson(PostModel data) => json.encode(data.toJson());
 
-class TransactionModel {
+class PostModel {
   String? id;
   String? postTitle;
   DateTime? dateTime;
@@ -20,7 +20,7 @@ class TransactionModel {
   int? like;
   int? dislike;
 
-  TransactionModel({
+  PostModel({
     this.id,
     this.postTitle,
     this.dateTime,
@@ -31,7 +31,7 @@ class TransactionModel {
     this.screenshot,
   });
 
-  factory TransactionModel.fromJson(Map<String, dynamic> json) => TransactionModel(
+  factory PostModel.fromJson(Map<String, dynamic> json) => PostModel(
     id: json["id"],
     postTitle: json["post_title"],
 

@@ -49,7 +49,7 @@ class LoginPage extends StatelessWidget {
                     ],
                   ),
                   Gap(10.w),
-                  Container(
+               /*   Container(
                     width: 1.sw * 0.7,
                     child: MainInputFiled(
                       textEditingController: controller.phoneNumberController,
@@ -64,19 +64,19 @@ class LoginPage extends StatelessWidget {
                       await controller.phoneAuth();
                     },
                     buttonText: "সেন্ড OTP",
-                  ),
+                  ),*/
                 ],
               ),
               Column(
                 children: [
-                  Text(
+        /*          Text(
                     "অথবা",
                     style: TextStyle(
                         color: AppColors.mainColor,
                         fontSize: 18.w,
                         fontWeight: FontWeight.bold),
                   ),
-                  Gap(10.w),
+                  Gap(10.w),*/
                   MainButton(
                     onTap: () async {
                       FirebaseApi firebaseApi = FirebaseApi();

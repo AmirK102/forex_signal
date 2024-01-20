@@ -16,7 +16,7 @@ import 'package:package_panda/repository/firebase_api.dart';
 import 'package:package_panda/utilities/app_colors.dart';
 import 'package:package_panda/utilities/common_methods.dart';
 
-import 'create_package.dart';
+import 'create_signal.dart';
 
 class CreatePost extends StatelessWidget {
   CreatePost({super.key});
@@ -47,7 +47,7 @@ class CreatePost extends StatelessWidget {
                     "All",
                     "Crypto",
                     "Forex",
-                    "Metal",
+                    "Metals",
                     "Stocks",
                   ],
                   onChanged: (v) {
@@ -57,7 +57,7 @@ class CreatePost extends StatelessWidget {
                     } else if (v == "Forex") {
                       controller.selectedCurencyType.value =
                           currencyType.forex.name;
-                    } else if (v == "Metal") {
+                    } else if (v == "Metals") {
                       controller.selectedCurencyType.value =
                           currencyType.metal.name;
                     } else if (v == "Stocks") {
@@ -78,27 +78,44 @@ class CreatePost extends StatelessWidget {
                 ),
                     Gap(20.w),
                 Obx(() {
-                  return InkWell(
-                    onTap: () async {
-                      controller.selectedImage.value =
-                      await CommonMethods().pickImage();
-                    },
-                    child: Container(
-                      height: 150.w,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                    
-                          border: Border.all(
-                            color: AppColors.mainColor,
-                            width: 1.w,
+                  return Stack(
+                    children: [
+                      InkWell(
+                        onTap: () async {
+                          controller.selectedImage.value =
+                          await CommonMethods().pickImage();
+                        },
+                        child: Container(
+                          height: 150.w,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+
+                              border: Border.all(
+                                color: AppColors.mainColor,
+                                width: 1.w,
+                              ),
+                              borderRadius: BorderRadius.circular(10.w)
                           ),
-                          borderRadius: BorderRadius.circular(10.w)
+
+                          child: controller.selectedImage.value == "" ? Center(
+                              child: Text("Upload Image")) : Image.file(
+                              File(controller.selectedImage.value)),
+                        ),
                       ),
-                    
-                      child: controller.selectedImage.value == "" ? Center(
-                          child: Text("Upload Image")) : Image.file(
-                          File(controller.selectedImage.value)),
-                    ),
+                      Positioned.fill(
+                          child:
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          onPressed: (){
+                            controller.selectedImage.value="";
+                          },
+                          icon: Icon(Icons.close),
+                        ),
+                      )
+                      )
+
+                    ],
                   );
                 }),
                     

@@ -6,19 +6,24 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:package_panda/admin_pages/create_package.dart';
+import 'package:package_panda/admin_pages/create_signal.dart';
 import 'package:package_panda/admin_pages/create_post.dart';
-import 'package:package_panda/admin_pages/package_details.dart';
-import 'package:package_panda/admin_pages/package_view_page.dart' as adminPackage;
+
+
 import 'package:package_panda/admin_pages/payment_methods.dart';
+import 'package:package_panda/admin_pages/update_post.dart';
+import 'package:package_panda/admin_pages/update_signal.dart';
+import 'package:package_panda/common_function/main_appbar.dart';
 import 'package:package_panda/common_function/main_button.dart';
 import 'package:package_panda/common_widget/MainDropdownPicker.dart';
 import 'package:package_panda/common_widget/MainInputFiled.dart';
 import 'package:package_panda/controller/admin_home_controller.dart';
+import 'package:package_panda/controller/home_page_controller.dart';
 import 'package:package_panda/model/PackageModel.dart';
 import 'package:package_panda/model/TransactionModel.dart';
 import 'package:package_panda/pages/home_page.dart';
 import 'package:package_panda/pages/order_page.dart';
+import 'package:package_panda/pages/transaction_history.dart';
 import 'package:package_panda/repository/firebase_api.dart';
 import 'package:package_panda/utilities/app_colors.dart';
 
@@ -38,6 +43,15 @@ class AdminHomePage extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: Column(
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MainAppBar(appBarText: "Admin home",),
+                  IconButton(onPressed: (){
+                    Get.to(()=>HomePage());
+                  }, icon: Icon(Icons.home))
+                ],
+              ),
               Gap(10.w),
               SizedBox(
                   child: MainButtonSmall(
@@ -54,7 +68,7 @@ class AdminHomePage extends StatelessWidget {
                       width: double.infinity,
                       child: MainButtonSmall(
                         onTap: () {
-                          Get.to(() => CreatePackage());
+                          Get.to(() => CreateSignal());
                         },
                         buttonText: "Add Signal",
                         // isIcon: true,
@@ -68,40 +82,9 @@ class AdminHomePage extends StatelessWidget {
                       width: double.infinity,
                       child: MainButtonSmall(
                         onTap: () {
-                          Get.to(() => adminPackage.PackageViewPage());
-                        },
-                        buttonText: "Edit Signal",
-
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Gap(15.w),
-              Row(
-                children: [
-                  Flexible(
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: MainButtonSmall(
-                        onTap: () {
                           Get.to(() => CreatePost());
                         },
                         buttonText: "Add Post",
-                        // isIcon: true,
-                        icon: FontAwesomeIcons.plus,
-                      ),
-                    ),
-                  ),
-                  Gap(10.w),
-                  Expanded(
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: MainButtonSmall(
-                        onTap: () {
-                          Get.to(() => adminPackage.PackageViewPage());
-                        },
-                        buttonText: "Edit Post",
 
                       ),
                     ),
@@ -214,25 +197,25 @@ class AdminHomePage extends StatelessWidget {
                     "All",
                     "Crypto",
                     "Forex",
-                    "Metal",
+                    "Metals",
                     "Stocks",
                   ],
                   onChanged: (v) {
                     if (v == "Crypto") {
                       controller.selectedMarketType.value =
-                          currencyType.crypto.name;
+                          MarketType.crypto.name;
                     } else if (v == "Forex") {
                       controller.selectedMarketType.value =
-                          currencyType.forex.name;
-                    } else if (v == "Metal") {
+                          MarketType.forex.name;
+                    } else if (v == "Metals") {
                       controller.selectedMarketType.value =
-                          currencyType.metal.name;
+                          MarketType.metal.name;
                     } else if (v == "Stocks") {
                       controller.selectedMarketType.value =
-                          currencyType.stock.name;
+                          MarketType.stock.name;
                     } else {
                       controller.selectedMarketType.value =
-                          currencyType.all.name;
+                          MarketType.all.name;
                     }
                   },
                   validator: (v) {
@@ -289,7 +272,7 @@ class AdminHomePage extends StatelessWidget {
               Gap(10.w),
               Expanded(child: Obx(() {
 
-
+              if(controller.selectedButton.value=="Signal"){
                 return StreamBuilder<List<SignalModel>>(
                     stream: FirebaseApi().getAllPackagesStream(
                       // ascending: controller.lowToHigh.value,
@@ -309,7 +292,7 @@ class AdminHomePage extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  //Get.to(() => SignalCard(data: snapshot.data[index]));
+                                  Get.to(() => UpdateSignal(),arguments: snapshot.data![index]);
                                 },
                                 child: SignalCard(data: snapshot.data![index]),
                               );
@@ -317,6 +300,38 @@ class AdminHomePage extends StatelessWidget {
                       }
                       return Container();
                     });
+              }else{
+                return StreamBuilder<List<PostModel>>(
+                    stream: FirebaseApi().getTransactionsByUserIdStream(
+                      marketType: controller.selectedMarketType.value == "all"
+                          ? null
+                          : controller.selectedMarketType.value,
+
+                    ),
+                    builder: (context, snapshot) {
+
+                      print(snapshot.error.toString());
+                      if (snapshot.hasData) {
+                        print("snapshot.data!.length");
+                        print(snapshot.data!.length);
+                        return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            PostModel data= snapshot.data![index];
+                            return InkWell(
+
+                                onTap: (){
+                                  Get.to(()=>UpdatePost(),arguments:data );
+                                },
+                                child: PostWidget(data: data,));
+                          },
+                        );
+                      }
+                      return Container();
+                    });
+              }
+
+
               }))
             ],
           ),
@@ -805,7 +820,7 @@ String formatDateTime(DateTime dateTime) {
 }*/
 
 Container paymentScreenshot(
-    {simColor, height, width, required TransactionModel data}) {
+    {simColor, height, width, required PostModel data}) {
   return Container(
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(3.w),

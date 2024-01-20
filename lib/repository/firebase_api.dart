@@ -296,6 +296,10 @@ class FirebaseApi {
 
     await doc.set(data);
   }
+
+  Future<void> updatePost({id, data}) async {
+    await _firestore.collection('orders').doc(id).update(data);
+  }
   Future<void> giveLike(id,count) async {
      await _firestore.collection('orders').doc(id).update({
       "like": count+1
@@ -308,19 +312,39 @@ class FirebaseApi {
     });
   }
 
-  Stream<List<TransactionModel>> getTransactionsByUserIdStream() {
-    return _firestore
-        .collection('orders')
+  Stream<List<PostModel>> getTransactionsByUserIdStream({String? marketType}) {
 
-        .orderBy('date_time', descending: true)
-        .snapshots()
-        .map((querySnapshot) {
-      return querySnapshot.docs.map((document) {
-        print(document.data());
-        // return TransactionModel.fromJson(document.data());
-        return TransactionModel.fromJson(document.data());
-      }).toList();
-    });
+
+    if(marketType!=null){
+      return _firestore
+          .collection('orders').where('market', isEqualTo: marketType)
+
+          .orderBy('date_time', descending: true)
+          .snapshots()
+          .map((querySnapshot) {
+        return querySnapshot.docs.map((document) {
+          print(document.data());
+          // return TransactionModel.fromJson(document.data());
+          return PostModel.fromJson(document.data());
+        }).toList();
+      });
+    }
+    else{
+      return _firestore
+          .collection('orders')
+
+          .orderBy('date_time', descending: true)
+          .snapshots()
+          .map((querySnapshot) {
+        return querySnapshot.docs.map((document) {
+          print(document.data());
+          // return TransactionModel.fromJson(document.data());
+          return PostModel.fromJson(document.data());
+        }).toList();
+      });
+    }
+
+
   }
 
   Future<void> createPaymentMethod(
@@ -367,7 +391,7 @@ class FirebaseApi {
 
   /// Admin
 
-  Future<void> createPackage(Map<String, dynamic> data,
+  Future<void> createSignal(Map<String, dynamic> data,
       {isUpdate = false, id}) async {
     var doc = _firestore.collection('packages').doc();
 
@@ -385,7 +409,7 @@ class FirebaseApi {
     await doc.delete();
   }
 
-  Stream<List<TransactionModel>> getTransactionsStreamAdmin({
+  Stream<List<PostModel>> getTransactionsStreamAdmin({
     String? userId,
     String? status,
     String? transactionId,
@@ -435,7 +459,7 @@ class FirebaseApi {
     }
     return query.snapshots().map((querySnapshot) {
       return querySnapshot.docs.map((document) {
-        return TransactionModel.fromJson(document.data());
+        return PostModel.fromJson(document.data());
       }).toList();
     });
   }
@@ -470,7 +494,7 @@ class FirebaseApi {
   }
 
   Future<void> changeRejectStatusForOrder(
-      id, message,TransactionModel data) async {
+      id, message,PostModel data) async {
 
 
     await _firestore.collection('orders').doc(id).update({
@@ -526,12 +550,12 @@ class FirebaseApi {
     return false;
   }
 
-  Stream<TransactionModel?> getForOrderUpdateStream(
+  Stream<PostModel?> getForOrderUpdateStream(
       String id, String name, String uid) {
     return _firestore.collection('orders').doc(id).snapshots().map((snapshot) {
       if (snapshot.exists) {
         var res =
-            TransactionModel.fromJson(snapshot.data() as Map<String, dynamic>);
+            PostModel.fromJson(snapshot.data() as Map<String, dynamic>);
 
         return res;
       } else {

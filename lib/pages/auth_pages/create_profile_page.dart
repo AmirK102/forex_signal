@@ -54,7 +54,7 @@ class CreateProfilePage extends StatelessWidget {
                 child: Column(
                   children: [
                     MainAppBar(
-                      appBarText: "প্রোফাইল আপডেট",
+                      appBarText: "Update profile",
                     ),
                     Gap(20.w),
                     ProfileImageWidget(controller: controller),
@@ -66,7 +66,7 @@ class CreateProfilePage extends StatelessWidget {
                         },
                         icon: FontAwesomeIcons.cameraRetro,
                         isIcon: true,
-                        buttonText: "ছবি আপলোড"),
+                        buttonText: "Upload Image"),
                     Gap(25.w),
                     Obx(() {
                       return Row(
@@ -74,12 +74,12 @@ class CreateProfilePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SizedBox(
-                            width: 120.w,
+                            width: 140.w,
                             child: MainButton(
                                 onTap: () async {
                                   controller.selectedGender.value = "male";
                                 },
-                                buttonText: "ছেলে",
+                                buttonText: "Male",
                                 buttonColor:
                                     controller.selectedGender.value != "male"
                                         ? AppColors.inActiveButtonTextColor
@@ -87,12 +87,12 @@ class CreateProfilePage extends StatelessWidget {
                           ),
                           Gap(30.w),
                           SizedBox(
-                            width: 120.w,
+                            width: 140.w,
                             child: MainButton(
                                 onTap: () async {
                                   controller.selectedGender.value = "female";
                                 },
-                                buttonText: "মেয়ে",
+                                buttonText: "Female",
                                 buttonColor:
                                     controller.selectedGender.value != "female"
                                         ? AppColors.inActiveButtonTextColor
@@ -110,13 +110,13 @@ class CreateProfilePage extends StatelessWidget {
                           children: [
                             MainInputFiled(
                               // textEditingController: TextEditingController,
-                              hints: "নাম লিখুন",
+                              hints: "Enter your name",
                               onChanged: (v) {
                                 data.addAll({"name": v});
                               },
                               validator: (v) {
                                 if (v == null || v.isEmpty) {
-                                  return "আপনার নাম লিখুন";
+                                  return "Enter your name";
                                 } else {
                                   return null;
                                 }
@@ -125,7 +125,7 @@ class CreateProfilePage extends StatelessWidget {
                             Gap(25.w),
                             if (accountCreateBy == "email")
                               MainInputFiled(
-                                hints: "ইমেইল লিখুন",
+                                hints: "Enter your email",
                                 readOnly: true,
                                 textEditingController: TextEditingController(
                                     text: controller.firebaseApi.googleSignIn
@@ -137,7 +137,7 @@ class CreateProfilePage extends StatelessWidget {
                               ),
                             if (accountCreateBy == "phone")
                               MainInputFiled(
-                                hints: "ইমেইল লিখুন",
+                                hints: "Enter your email",
                                 keyboardType: TextInputType.emailAddress,
                                 onChanged: (v) {
                                   data.addAll({"email": v});
@@ -148,7 +148,7 @@ class CreateProfilePage extends StatelessWidget {
                               MainInputFiled(
                                 textEditingController:
                                     TextEditingController(text: ""),
-                                hints: "ফোন নম্বর লিখুন",
+                                hints: "Enter your phone",
                                 readOnly: false,
                                 keyboardType: TextInputType.phone,
                                 onChanged: (v) {
@@ -160,14 +160,14 @@ class CreateProfilePage extends StatelessWidget {
                                 textEditingController: TextEditingController(
                                     text: FirebaseAuth
                                         .instance.currentUser!.phoneNumber!),
-                                hints: "ফোন নম্বর লিখুন",
+                                hints: "Enter your phone",
                                 readOnly: true,
                                 keyboardType: TextInputType.phone,
                                 onChanged: (v) {
                                   data.addAll({"phone": v});
                                 },
                               ),
-                            Gap(25.w),
+                    /*        Gap(25.w),
                             MainDropdownPicker(
                               onChanged: (v) {
                                 data.addAll({"occupation": v});
@@ -194,7 +194,7 @@ class CreateProfilePage extends StatelessWidget {
                               },
                               labelText: "জেলা সিলেক্ট করুন",
                               options: district,
-                            ),
+                            ),*/
                           ],
                         ),
                       ),
@@ -244,7 +244,7 @@ class CreateProfilePage extends StatelessWidget {
                                 EasyLoading.dismiss();
                               }
                             },
-                            buttonText: "সেভ করুন")),
+                            buttonText: "Submit")),
                     Gap(25.w),
                   ],
                 ),
@@ -253,7 +253,7 @@ class CreateProfilePage extends StatelessWidget {
                 child: Column(
                   children: [
                     MainAppBar(
-                      appBarText: "প্রোফাইল আপডেট",
+                      appBarText: "Update Profile",
                     ),
                     Gap(20.w),
                     ProfileImageWidget(controller: controller),
@@ -265,7 +265,7 @@ class CreateProfilePage extends StatelessWidget {
                         },
                         icon: FontAwesomeIcons.cameraRetro,
                         isIcon: true,
-                        buttonText: "ছবি আপলোড"),
+                        buttonText: "Upload Image"),
                     Gap(25.w),
                     Obx(() {
                       return Row(
@@ -273,12 +273,12 @@ class CreateProfilePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SizedBox(
-                            width: 120.w,
+                            width: 140.w,
                             child: MainButton(
                                 onTap: () async {
                                   controller.selectedGender.value = "male";
                                 },
-                                buttonText: "ছেলে",
+                                buttonText: "Male",
                                 buttonColor:
                                     controller.selectedGender.value != "male"
                                         ? AppColors.inActiveButtonTextColor
@@ -286,12 +286,12 @@ class CreateProfilePage extends StatelessWidget {
                           ),
                           Gap(30.w),
                           SizedBox(
-                            width: 120.w,
+                            width: 140.w,
                             child: MainButton(
                                 onTap: () async {
                                   controller.selectedGender.value = "female";
                                 },
-                                buttonText: "মেয়ে",
+                                buttonText: "Female",
                                 buttonColor:
                                     controller.selectedGender.value != "female"
                                         ? AppColors.inActiveButtonTextColor
@@ -310,13 +310,13 @@ class CreateProfilePage extends StatelessWidget {
                             MainInputFiled(
                               textEditingController: TextEditingController(
                                   text: FirebaseApi.userModel!.name ?? ""),
-                              hints: "নাম লিখুন",
+                              hints: "Enter your name",
                               onChanged: (v) {
                                 data.addAll({"name": v});
                               },
                               validator: (v) {
                                 if (v == null || v.isEmpty) {
-                                  return "আপনার নাম লিখুন";
+                                  return "Enter your name";
                                 } else {
                                   return null;
                                 }
@@ -324,7 +324,7 @@ class CreateProfilePage extends StatelessWidget {
                             ),
                             Gap(25.w),
                             MainInputFiled(
-                              hints: "ইমেইল লিখুন",
+                              hints: "Enter your email",
                               readOnly:
                                   FirebaseApi.userModel!.loginBy == "email",
                               textEditingController: TextEditingController(
@@ -338,7 +338,7 @@ class CreateProfilePage extends StatelessWidget {
                             MainInputFiled(
                               textEditingController: TextEditingController(
                                   text: FirebaseApi.userModel!.phone ?? ""),
-                              hints: "ফোন নম্বর লিখুন",
+                              hints: "Enter your phone",
                               readOnly:
                                   FirebaseApi.userModel!.loginBy == "phone",
                               keyboardType: TextInputType.phone,
@@ -347,7 +347,7 @@ class CreateProfilePage extends StatelessWidget {
                               },
                             ),
                             Gap(25.w),
-                            MainDropdownPicker(
+                     /*       MainDropdownPicker(
                               onChanged: (v) {
                                 data.addAll({"occupation": v});
                               },
@@ -377,7 +377,7 @@ class CreateProfilePage extends StatelessWidget {
                               options: district,
                               initialValue:
                                   FirebaseApi.userModel!.district ?? "",
-                            ),
+                            ),*/
                           ],
                         ),
                       ),
@@ -434,7 +434,7 @@ class CreateProfilePage extends StatelessWidget {
                                 EasyLoading.dismiss();
                               }
                             },
-                            buttonText: "সেভ করুন")),
+                            buttonText: "Save")),
                     Gap(25.w),
                   ],
                 ),
