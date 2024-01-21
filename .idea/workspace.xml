@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9302b8a-33fd-4e95-9ab0-4a7507d2d2f2" name="Changes" comment="gfg">
+    <list default="true" id="a9302b8a-33fd-4e95-9ab0-4a7507d2d2f2" name="Changes" comment="deployed to firebase">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/admin_pages/create_post.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/admin_pages/create_post.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/controller/admin_home_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controller/admin_home_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repository/firebase_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/firebase_api.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,13 +78,21 @@
       <option name="project" value="LOCAL" />
       <updated>1705760051438</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="deployed to firebase">
+      <created>1705769964169</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1705769964169</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="signal and post added" />
     <MESSAGE value="gfg" />
-    <option name="LAST_COMMIT_MESSAGE" value="gfg" />
+    <MESSAGE value="deployed to firebase" />
+    <option name="LAST_COMMIT_MESSAGE" value="deployed to firebase" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

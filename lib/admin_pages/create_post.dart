@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -98,7 +99,8 @@ class CreatePost extends StatelessWidget {
                           ),
 
                           child: controller.selectedImage.value == "" ? Center(
-                              child: Text("Upload Image")) : Image.file(
+                              child: Text("Upload Image")) :
+                  kIsWeb? Image.network(controller.selectedImage.value)  :Image.file(
                               File(controller.selectedImage.value)),
                         ),
                       ),
@@ -136,6 +138,7 @@ class CreatePost extends StatelessWidget {
 
                   if(controller.selectedCurencyType.value==""){
                     showErrorMessage("Select Market");
+                    return;
                   }
                     
                   data.addAll({

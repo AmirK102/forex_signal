@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -13,6 +14,7 @@ import 'package:package_panda/model/TransactionModel.dart';
 import 'package:package_panda/model/UserModel.dart';
 import 'package:package_panda/push_notification.dart';
 import 'package:package_panda/utilities/app_colors.dart';
+
 
 class FirebaseApi {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -138,18 +140,41 @@ class FirebaseApi {
     if (nameOfImage == null) {
       nameOfImage = DateTime.now().toIso8601String();
     }
+    var downloadUrl;
 
-    // Create a reference to the file in Firebase Storage
-    final storageRef =
-        FirebaseStorage.instance.ref().child(UserId).child(nameOfImage);
+    if(kIsWeb) {
+      Reference _reference = FirebaseStorage.instance
+          .ref()
+          .child(UserId).child(nameOfImage);
 
-    var dd = SettableMetadata(contentType: "image/jpeg");
+      print("Start upload");
+      await _reference
+          .putData(
+        await file.readAsBytes(),
+        SettableMetadata(contentType: 'image/jpeg'),
+      )
+          .whenComplete(() async {
+        await _reference.getDownloadURL().then((value) {
+          downloadUrl = value;
+        });
+      });
+      print("end upload");
+    }else{
+      // Create a reference to the file in Firebase Storage
+      final storageRef =
+      FirebaseStorage.instance.ref().child(UserId).child(nameOfImage);
 
-    // Upload the file to Firebase Storage
-    await storageRef.putFile(file, dd);
 
-    // Get the download URL of the uploaded file
-    final downloadUrl = await storageRef.getDownloadURL();
+
+
+      var dd = SettableMetadata(contentType: "image/jpeg");
+
+      // Upload the file to Firebase Storage
+      await storageRef.putFile(file, dd);
+
+      // Get the download URL of the uploaded file
+      downloadUrl = await storageRef.getDownloadURL();
+    }
 
     // Return the download URL
     return downloadUrl;

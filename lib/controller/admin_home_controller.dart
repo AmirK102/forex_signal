@@ -14,7 +14,7 @@ class AdminHomeLogic extends GetxController{
     // TODO: implement onInit
     super.onInit();
 
-    FirebaseMessaging.instance.subscribeToTopic("adminNotifications");
+    //FirebaseMessaging.instance.subscribeToTopic("adminNotifications");
   }
 
 }
