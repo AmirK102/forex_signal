@@ -41,6 +41,28 @@ class FirebaseApi {
 
   FirebaseApi._internal();
 
+
+
+  // subscription functions
+
+
+  Future<void> submitPaymentProof(Map<String, dynamic> data, ) async {
+    var doc = _firestore.collection('subscription_request').doc();
+
+    data.addAll({
+      "id": doc.id,
+
+    });
+    //return true;
+    if(data["screenshot"]!=""){
+      var link = await uploadImageToStorage(File(data["screenshot"]));
+      data.addAll({"screenshot": link});
+    }
+
+    await doc.set(data);
+  }
+
+
   Future<bool> checkLogin({isPhone = false}) async {
     if (isPhone) {
       var res = FirebaseAuth.instance.currentUser != null;
@@ -198,6 +220,7 @@ class FirebaseApi {
       "created_at": DateTime.now(),
       "last_open_app": DateTime.now(),
       "profile_photo": photoUrl,
+      "credits":5
     });
 
     try {
@@ -222,6 +245,7 @@ class FirebaseApi {
       UserId = googleSignIn.currentUser!.id;
       return true;
     } catch (error) {
+      print("error");
       print(error);
     }
     return false;
@@ -427,6 +451,16 @@ class FirebaseApi {
       await doc.set(data);
     }
   }
+
+  Future<void> updateStatus(Map<String, dynamic> data,
+      { id}) async {
+    var doc = _firestore.collection('packages').doc();
+
+      await _firestore.collection('packages').doc(id).update(data);
+
+  }
+
+
 
   Future<void> deletePackage(id) async {
     var doc = _firestore.collection('packages').doc(id);

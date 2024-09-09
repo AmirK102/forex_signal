@@ -5,17 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9302b8a-33fd-4e95-9ab0-4a7507d2d2f2" name="Changes" comment="deployed to firebase">
+      <change afterPath="$PROJECT_DIR$/asset/images/credit.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/admin_pages/Subscribers.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/pages/subscription/chose_plan_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/pages/subscription/payment_submit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.fvm/flutter_sdk" beforeDir="false" afterPath="$PROJECT_DIR$/.fvm/flutter_sdk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.fvm/fvm_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.fvm/fvm_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/admin_pages/create_post.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/admin_pages/create_post.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/admin_home_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controller/admin_home_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/kotlin/com/appanda/packagepanda/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Flutter/Debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Debug.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Flutter/Release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Release.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/admin_pages/admin_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/admin_pages/admin_home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/admin_pages/create_signal.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/admin_pages/create_signal.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/admin_pages/update_signal.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/admin_pages/update_signal.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/controller/create_package_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controller/create_package_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/controller/update_signal_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controller/update_signal_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/generated/assets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated/assets.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/model/PackageModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/PackageModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/model/UserModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/UserModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/auth_pages/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/auth_pages/login_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/home_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/order_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/order_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/repository/firebase_api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repository/firebase_api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/Flutter-Debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/Flutter-Debug.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/Flutter-Release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/Flutter-Release.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -30,6 +59,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2aiK0QqaruhL2KfZlfKvF6ELvjE" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -38,17 +70,28 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/forex_signal&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;flutter.settings&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/pages/subscription" />
+      <recent name="$PROJECT_DIR$/asset/images" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
@@ -98,9 +141,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/pages/home_page.dart</url>
-          <line>253</line>
-          <option name="timeStamp" value="3" />
+          <url>file://$PROJECT_DIR$/lib/pages/subscription/payment_submit.dart</url>
+          <line>71</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/repository/firebase_api.dart</url>
+          <line>452</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

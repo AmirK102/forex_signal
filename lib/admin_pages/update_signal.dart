@@ -12,6 +12,7 @@ import 'package:package_panda/model/PackageModel.dart';
 import 'package:package_panda/pages/order_page.dart';
 import 'package:package_panda/repository/firebase_api.dart';
 import 'package:package_panda/utilities/app_colors.dart';
+import 'package:package_panda/controller/create_package_controller.dart';
 
 import '../common_widget/MainInputFiled.dart';
 
@@ -178,40 +179,78 @@ class UpdateSignal extends StatelessWidget {
               Gap(30.w),
 
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                padding:  EdgeInsets.symmetric(horizontal: 10.w),
                 child: Obx(() {
-                  controller.isSell.value;
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  controller.selectedEntryType.value;
+                  return Wrap(
+                    //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    spacing: 4.0,
+                    runSpacing: 4.0,
                     children: [
-                      Expanded(
-                        child: MainButton(
-                          onTap: () {
-                            controller.isSell.value = true;
-                          },
-                          buttonText: "Sell",
+                      MainButton(
+                        onTap: () {
+                          controller.selectedEntryType.value = entryType.Sell.name;
+                        },
+                        buttonText: "Sell",
 
 
-                          buttonColor: controller.isSell.value == true
-                              ? AppColors
-                              .mainColor
-                              : AppColors.inActiveButtonTextColor,
-                        ),
+                        buttonColor: controller.selectedEntryType.value == entryType.Sell.name ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
                       ),
-                      Gap(10.w),
-                      Expanded(
-                        child: MainButton(
-                          onTap: () {
-                            controller.isSell.value = false;
-                          },
-                          buttonText: "Buy",
+
+                      MainButton(
+                        onTap: () {
+                          controller.selectedEntryType.value = entryType.Buy.name;
+                        },
+                        buttonText: "Buy",
 
 
-                          buttonColor: controller.isSell.value == false
-                              ? AppColors
-                              .mainColor
-                              : AppColors.inActiveButtonTextColor,
-                        ),
+                        buttonColor: controller.selectedEntryType.value == entryType.Buy.name ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
+                      ),
+
+                      MainButton(
+                        onTap: () {
+                          controller.selectedEntryType.value = entryType.Buy_Stop.name;
+                        },
+                        buttonText: "Buy Stop",
+
+
+                        buttonColor: controller.selectedEntryType.value == entryType.Buy_Stop.name ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
+                      ),
+
+                      MainButton(
+                        onTap: () {
+                          controller.selectedEntryType.value = entryType.Sell_Stop.name;
+                        },
+                        buttonText: "Sell Stop",
+
+
+                        buttonColor: controller.selectedEntryType.value == entryType.Sell_Stop.name ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
+                      ),
+
+                      MainButton(
+                        onTap: () {
+                          controller.selectedEntryType.value = entryType.Buy_Limit.name ;
+                        },
+                        buttonText: "Buy Limit",
+
+
+                        buttonColor: controller.selectedEntryType.value == entryType.Buy_Limit.name ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
+                      ),
+
+                      MainButton(
+                        onTap: () {
+                          controller.selectedEntryType.value = entryType.Sell_Limit.name;
+                        },
+                        buttonText: "Sell Limit",
+
+
+                        buttonColor: controller.selectedEntryType.value == entryType.Sell_Limit.name ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
                       ),
                     ],
                   );
@@ -219,11 +258,11 @@ class UpdateSignal extends StatelessWidget {
               ),
 
 
-              Gap(10.w),
+           /*   Gap(10.w),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4.w),
                 child: Obx(() {
-                  controller.isSell.value;
+                  controller.selectedEntryType.value;
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -269,7 +308,7 @@ class UpdateSignal extends StatelessWidget {
                   );
                 }),
               ),
-              Gap(20.w),
+              Gap(20.w),*/
               MainButton(
                   onTap: () {
 
@@ -280,10 +319,8 @@ class UpdateSignal extends StatelessWidget {
                       showErrorMessage("Fill all form");
                       return;
                     }
-                    if (controller.status == "") {
-                      showErrorMessage("Select status");
-                      return;
-                    }
+
+
 
                     _showConfirmationBottomSheet(context);
                   },
@@ -366,10 +403,9 @@ Future<void> submitPackageData(UpdateSignalController controller) async {
     "tp2":controller.tp2.text,
     "tp3":controller.tp3.text,
     "date_time": DateTime.now(),
-
-    "status": controller.status.value,
+    "status": "",
     "market": controller.selectedMarket.value,
-    "action": controller.isSell.value,
+    "action": controller.selectedEntryType.value.replaceAll("_", " "),
   };
   EasyLoading.show();
   await FirebaseApi().createSignal(packageData,

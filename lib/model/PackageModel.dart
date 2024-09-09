@@ -21,7 +21,12 @@ class SignalModel {
   DateTime? dateTime;
   String? status;
   String? market;
-  bool? action;
+  String? action;
+  bool? isComplete;
+  bool? isTp1Complete;
+  bool? isTp2Complete;
+  bool? isTp3Complete;
+  bool? isSlComplete;
 
   SignalModel({
     this.id,
@@ -35,6 +40,11 @@ class SignalModel {
     this.status,
     this.market,
     this.action,
+    this.isComplete,
+    this.isTp1Complete,
+    this.isTp2Complete,
+    this.isTp3Complete,
+    this.isSlComplete,
   });
 
   factory SignalModel.fromJson(Map<String, dynamic> json) => SignalModel(
@@ -49,6 +59,11 @@ class SignalModel {
     status: json["status"],
     market: json["market"],
     action: json["action"],
+    isComplete: json["isComplete"],
+    isTp1Complete: json["isTp1Complete"],
+    isTp2Complete: json["isTp2Complete"],
+    isTp3Complete: json["isTp3Complete"],
+    isSlComplete: json["isSlComplete"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -63,5 +78,10 @@ class SignalModel {
     "status": status,
     "market": market,
     "action": action,
+    "isComplete": isComplete,
+    "isTp1Complete": isTp1Complete,
+    "isTp2Complete": isTp2Complete,
+    "isTp3Complete": isTp3Complete,
+    "isSlComplete": isSlComplete,
   };
 }

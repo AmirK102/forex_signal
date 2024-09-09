@@ -22,6 +22,7 @@ class UserModel {
   DateTime? createdAt;
   DateTime? lastOpenApp;
   String? profilePhoto;
+  int? credits;
 
   UserModel({
     this.email,
@@ -35,6 +36,7 @@ class UserModel {
     this.createdAt,
     this.lastOpenApp,
     this.profilePhoto,
+    this.credits,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -49,6 +51,7 @@ class UserModel {
     createdAt: json["created_at"] == null ? null : (json["created_at"] as Timestamp).toDate(),
     lastOpenApp: json["last_open_app"] == null ? null : (json["last_open_app"] as Timestamp).toDate(),
     profilePhoto: json["profile_photo"],
+    credits: json["credits"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -63,5 +66,6 @@ class UserModel {
     "created_at": createdAt,
     "last_open_app": lastOpenApp,
     "profile_photo": profilePhoto,
+    "credits": credits,
   };
 }

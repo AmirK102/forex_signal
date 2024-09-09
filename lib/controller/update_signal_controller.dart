@@ -6,7 +6,8 @@ class UpdateSignalController extends GetxController{
 
   RxString selectedMarket= "".obs;
 
-  RxBool isSell=false.obs;
+
+  RxString selectedEntryType="".obs;
 
   RxString status="".obs;
 
@@ -30,7 +31,7 @@ class UpdateSignalController extends GetxController{
 
     if(data!=null){
       selectedMarket.value= data!.market??"";
-      isSell.value= data!.action??false;
+      selectedEntryType.value= data!.action!;
       status.value= data!.status??"";
       pair.text=data!.pair??"";
       tp1.text=data!.tp1??"";

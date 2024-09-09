@@ -1,4 +1,4 @@
-import 'dart:html';
+
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -15,6 +15,7 @@ import 'package:package_panda/utilities/app_colors.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
+  print("line 1");
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
@@ -22,11 +23,11 @@ Future<void> main() async {
 
 
   );
-
+  print("line 2");
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   pushNotification().setupFlutterNotifications();
   pushNotification().initPushNotificationListener();
-
+  print("line 3");
   runApp(const MyApp());
 }
 

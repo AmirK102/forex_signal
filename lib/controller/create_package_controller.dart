@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:package_panda/model/PackageModel.dart';
-
+enum  entryType {Sell,Buy,Buy_Stop,Sell_Stop,Buy_Limit,Sell_Limit}
 class CreatePackageLogic extends GetxController{
 
   RxString selectedCurencyType= "".obs;
 
-  RxBool isSell=false.obs;
+ RxString selectedEntryType=''.obs;
+
 
   RxString status="".obs;
 

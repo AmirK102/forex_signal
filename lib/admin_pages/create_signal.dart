@@ -202,34 +202,76 @@ class CreateSignal extends StatelessWidget {
               Padding(
                 padding:  EdgeInsets.symmetric(horizontal: 10.w),
                 child: Obx(() {
-                  controller.isSell.value;
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  controller.selectedEntryType.value;
+                  return Wrap(
+                  //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    spacing: 4.0,
+                    runSpacing: 4.0,
                     children: [
-                      Expanded(
-                        child: MainButton(
-                          onTap: () {
-                            controller.isSell.value = true;
-                          },
-                          buttonText: "Sell",
+                      MainButton(
+                        onTap: () {
+                          controller.selectedEntryType.value = entryType.Sell.name;
+                        },
+                        buttonText: "Sell",
 
 
-                          buttonColor: controller.isSell.value == true ? AppColors
-                              .mainColor : AppColors.inActiveButtonTextColor,
-                        ),
+                        buttonColor: controller.selectedEntryType.value == entryType.Sell.name ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
                       ),
-                      Gap(10.w),
-                      Expanded(
-                        child: MainButton(
-                          onTap: () {
-                            controller.isSell.value = false;
-                          },
-                          buttonText: "Buy",
+
+                      MainButton(
+                        onTap: () {
+                          controller.selectedEntryType.value = entryType.Buy.name;
+                        },
+                        buttonText: "Buy",
 
 
-                          buttonColor: controller.isSell.value == false ? AppColors
-                              .mainColor : AppColors.inActiveButtonTextColor,
-                        ),
+                        buttonColor: controller.selectedEntryType.value == entryType.Buy.name ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
+                      ),
+
+                      MainButton(
+                        onTap: () {
+                          controller.selectedEntryType.value = entryType.Buy_Stop.name;
+                        },
+                        buttonText: "Buy Stop",
+
+
+                        buttonColor: controller.selectedEntryType.value == entryType.Buy_Stop.name ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
+                      ),
+
+                      MainButton(
+                        onTap: () {
+                          controller.selectedEntryType.value = entryType.Sell_Stop.name;
+                        },
+                        buttonText: "Sell Stop",
+
+
+                        buttonColor: controller.selectedEntryType.value == entryType.Sell_Stop.name ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
+                      ),
+
+                      MainButton(
+                        onTap: () {
+                          controller.selectedEntryType.value = entryType.Buy_Limit.name ;
+                        },
+                        buttonText: "Buy Limit",
+
+
+                        buttonColor: controller.selectedEntryType.value == entryType.Buy_Limit.name ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
+                      ),
+
+                      MainButton(
+                        onTap: () {
+                          controller.selectedEntryType.value = entryType.Sell_Limit.name;
+                        },
+                        buttonText: "Sell Limit",
+
+
+                        buttonColor: controller.selectedEntryType.value == entryType.Sell_Limit.name ? AppColors
+                            .mainColor : AppColors.inActiveButtonTextColor,
                       ),
                     ],
                   );
@@ -238,11 +280,11 @@ class CreateSignal extends StatelessWidget {
 
 
 
-              Gap(10.w),
+       /*       Gap(10.w),
               Padding(
                 padding:  EdgeInsets.symmetric(horizontal: 4.w),
                 child: Obx(() {
-                  controller.isSell.value;
+                  controller.selectedEntryType.value;
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -281,7 +323,7 @@ class CreateSignal extends StatelessWidget {
                     ],
                   );
                 }),
-              ),
+              ),*/
               Gap(20.w),
               MainButton(
                   onTap: () {
@@ -303,10 +345,10 @@ class CreateSignal extends StatelessWidget {
                       showErrorMessage("Fill all form");
                       return;
                     }
-                    if(controller.status==""){
+               /*     if(controller.status==""){
                       showErrorMessage("Select status");
                       return;
-                    }
+                    }*/
 
                     _showConfirmationBottomSheet(context);
                   },
@@ -385,9 +427,15 @@ Future<void> submitPackageData(CreatePackageLogic controller) async {
     "tp3":controller.tp3.text,
     "date_time": DateTime.now(),
 
-    "status": controller.status.value,
+
+    "status": "",
     "market": controller.selectedCurencyType.value,
-    "action": controller.isSell.value,
+    "action": controller.selectedEntryType.value.replaceAll("_", " "),
+    "isComplete":false,
+    "isTp1Complete":false,
+    "isTp2Complete":false,
+    "isTp3Complete":false,
+    "isSlComplete":false,
   };
   EasyLoading.show();
   await FirebaseApi().createSignal(packageData,

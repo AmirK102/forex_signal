@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:package_panda/admin_pages/Subscribers.dart';
 import 'package:package_panda/admin_pages/create_signal.dart';
 import 'package:package_panda/admin_pages/create_post.dart';
 
@@ -53,6 +55,14 @@ class AdminHomePage extends StatelessWidget {
                 ],
               ),
               Gap(10.w),
+              SizedBox(
+                  child: MainButtonSmall(
+                    onTap: () {
+                      Get.to(() => SubscriberListPage());
+                    },
+                    buttonText: "Subscribers",
+                  )),
+
               SizedBox(
                   child: MainButtonSmall(
                     onTap: () {
@@ -294,7 +304,56 @@ class AdminHomePage extends StatelessWidget {
                                 onTap: () {
                                   Get.to(() => UpdateSignal(),arguments: snapshot.data![index]);
                                 },
-                                child: SignalCard(data: snapshot.data![index]),
+                                child: SignalCard(data: snapshot.data![index],showOption: true,
+                                exitOnTap: () async {
+
+                                  Map<String, dynamic> packageData = {
+
+                                    "isComplete":true
+                                  };
+                                  EasyLoading.show();
+                                  await FirebaseApi().updateStatus(packageData,
+                                      id: snapshot.data![index].id == null ? null : snapshot.data![index].id);
+                                  EasyLoading.dismiss();
+                                  showErrorMessage(title: "Success", "Signal Completed");
+
+                                },
+                                  Tp1OnTap: () async {
+                                    Map<String, dynamic> packageData = {
+
+                                      "isTp1Complete":true
+                                    };
+                                    EasyLoading.show();
+                                    await FirebaseApi().updateStatus(packageData,
+                                        id: snapshot.data![index].id == null ? null : snapshot.data![index].id);
+                                    EasyLoading.dismiss();
+                                    showErrorMessage(title: "Success", "Signal Completed");
+                                  },
+                                  Tp2OnTap: () async {
+                                    Map<String, dynamic> packageData = {
+
+                                      "isTp2Complete":true
+                                    };
+                                    EasyLoading.show();
+                                    await FirebaseApi().updateStatus(packageData,
+                                        id: snapshot.data![index].id == null ? null : snapshot.data![index].id);
+                                    EasyLoading.dismiss();
+                                    showErrorMessage(title: "Success", "Signal Completed");
+                                  },
+                                  Tp3OnTap: () async {
+                                    Map<String, dynamic> packageData = {
+
+                                      "isSlComplete":true
+                                    };
+                                    EasyLoading.show();
+                                    await FirebaseApi().updateStatus(packageData,
+                                        id: snapshot.data![index].id == null ? null : snapshot.data![index].id);
+                                    EasyLoading.dismiss();
+                                    showErrorMessage(title: "Success", "Signal Completed");
+                                  },
+                                  SlOnTap: (){},
+
+                                )
                               );
                             });
                       }

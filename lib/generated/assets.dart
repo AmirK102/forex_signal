@@ -8,6 +8,7 @@ class Assets {
   static const String imagesAirtel = 'asset/images/airtel.png';
   static const String imagesBanglalink = 'asset/images/banglalink.png';
   static const String imagesCongrats = 'asset/images/congrats.png';
+  static const String imagesCredit = 'asset/images/credit.gif';
   static const String imagesFacebook = 'asset/images/facebook.jpg';
   static const String imagesFemale = 'asset/images/female.png';
   static const String imagesGp = 'asset/images/gp.png';

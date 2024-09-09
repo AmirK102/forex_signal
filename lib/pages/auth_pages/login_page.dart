@@ -82,6 +82,8 @@ class LoginPage extends StatelessWidget {
                       FirebaseApi firebaseApi = FirebaseApi();
                       var res = await firebaseApi.handleSignInGoogle();
 
+                      print("fdfdf: $res");
+
                       if (res) {
                         var resUSer = await firebaseApi.isUserExist(
                             firebaseApi.googleSignIn.currentUser!.id);

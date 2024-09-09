@@ -72,21 +72,21 @@ class OrderPage extends StatelessWidget {
                                   fontSize: 24.w,
                                   fontWeight: FontWeight.bold),
                             ),
-                            Text(
+                      /*      Text(
                               "10/02/24 12:34",
                               style: TextStyle(
                                   color: Colors.black54,
                                   fontSize: 12.w,
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.w400),
-                            ),
+                            ),*/
                           ],
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(       signalData.action!?"Sell/Short":"Buy/Long",      style: TextStyle(
+                            Text(       signalData.action!,      style: TextStyle(
                                 color: AppColors.mainColor,
                                 fontSize: 24.w,
                                 fontWeight: FontWeight.bold),
@@ -120,37 +120,97 @@ class OrderPage extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        Text("Open Entry: ${signalData.openEntru}",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18.w,
-                                fontWeight: FontWeight.bold)),
+                        Container(
+
+                          padding: EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                            color: AppColors.mainColor,
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              width: 1,
+                              color: AppColors.mainColor
+                            )
+                          ),
+                          child: Text("Open Entry: ${signalData.openEntru}",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.w,
+                                  fontWeight: FontWeight.bold)),
+                        ),
                         Gap(5.w),
-                        Text("Stop loss: ${signalData.stopLoss}",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18.w,
-                                fontWeight: FontWeight.bold)),
+                        Container(
+
+                          padding: EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                              color: AppColors.airtelColor,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                  width: 1,
+                                  color: AppColors.airtelColor
+                              )
+                          ),
+                          child: Text("Stop loss: ${signalData.stopLoss}",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.w,
+                                  fontWeight: FontWeight.bold)),
+                        ),
                         Gap(5.w),
-                        Center(child: Text("TP 1: ${signalData.tp1!}",style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 18.w,
-                            fontWeight: FontWeight.w600
-                        ),)),
+                        Center(child: Container(
+
+                          padding: EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                  width: 1,
+                                  color: Colors.green
+                              )
+                          ),
+                          child: Text("Take Profit 1: ${signalData.tp1!}",style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.w,
+                              fontWeight: FontWeight.w600
+                          ),),
+                        )),
                         Gap(5.w),
                         if(signalData.tp2! !="")
-                        Center(child: Text("TP 2: ${signalData.tp2!}",style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 18.w,
-                            fontWeight: FontWeight.w600
-                        ),)),
+                        Center(child: Container(
+
+                          padding: EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                  width: 1,
+                                  color: Colors.green
+                              )
+                          ),
+                          child: Text("Take Profit 2: ${signalData.tp2!}",style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.w,
+                              fontWeight: FontWeight.w600
+                          ),),
+                        )),
                         Gap(5.w),
                         if(signalData.tp3! !="")
-                        Center(child: Text("TP 3: ${signalData.tp3!}",style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 18.w,
-                            fontWeight: FontWeight.w600
-                        ),)),
+                        Center(child: Container(
+
+                          padding: EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                  width: 1,
+                                  color: Colors.green
+                              )
+                          ),
+                          child: Text("Take Profit 3: ${signalData.tp3!}",style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.w,
+                              fontWeight: FontWeight.w600
+                          ),),
+                        )),
                       ],
                     ),
                   ),
